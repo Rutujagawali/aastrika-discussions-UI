@@ -8,7 +8,7 @@
             <div class="post_user_text_box">
                 <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
                 <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
-                <span class="timing">{{discussionData.lastposttime | date}}</span>
+                <span class="timing">{{discussionData.lastposttime |pipeRelativeTime}}</span>
             </div>
 
         </div>
@@ -31,26 +31,35 @@
       <span class="timing">{{discussionData.lastposttime | date}}</span> -->
         </div>
     </div>
-    <div class="tags margin-bottom-s">
+    <!-- <div class="tags margin-bottom-s">
         <ng-container *ngIf="discussionData && discussionData.tags && discussionData.tags.length > 0">
-            <!-- <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> -->
-            <span *ngFor="let tag of discussionData.tags" class="tag post_tag margin-right-s">
+             <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> 
+             <span *ngFor="let tag of discussionData.tags" class="tag post_tag margin-right-s">
             {{tag.value}}
             </span>
-        </ng-container>
-    </div>
+        </ng-container> 
+    </div> -->
     <div class="discuss-card-comments ">
         <div class="discuss-comments-area ">
             <span class="votes-content ">
-        <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">
+                <span class = "discuss-card-label">
+                    Reply
+                </span>
+                <img src="./assets/discussion-ui/images/thumbs-up.png" alt="thumbs-up-image">
+                <span>{{(discussionData.upvotes || 0) }}</span>
+        <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">
         <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} Votes</span>
             </span>
             <span class="views-content ">
         <img src="./assets/discussion-ui/images/trending_up.svg " alt="views-image ">
-        <span>{{discussionData.viewcount || 0}} Views</span>
+        <span>{{discussionData.viewcount || 0}} Views</span> -->
             </span>
         </div>
-        <div class="cursor-pointer comments-count " *ngIf="IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comment</div>
-        <div class="cursor-pointer comments-count " *ngIf="!IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comments</div>
+     
+        <!-- <div class="cursor-pointer comments-count " *ngIf="IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comment</div>
+        <div class="cursor-pointer comments-count " *ngIf="!IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comments</div> -->
+    </div>
+    <div class = "discuss-card-label ">
+        Hide 4 Replies
     </div>
 </div>
