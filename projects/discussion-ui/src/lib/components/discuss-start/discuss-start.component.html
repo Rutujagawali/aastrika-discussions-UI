@@ -46,7 +46,7 @@
               8 characters </small> -->
           </div>
 
-          <div #postTags [ngClass]="{ 'is-invalid': showError('tags') }" class="post-tags">
+          <div #postTags [ngClass]="{ 'is-invalid': showError('tags') }" class="post-tags hidden">
             <label class="mb-0 start-form-label">Tags</label>
             <div *ngFor="let tag of postTagsArray">
               {{ tag }}

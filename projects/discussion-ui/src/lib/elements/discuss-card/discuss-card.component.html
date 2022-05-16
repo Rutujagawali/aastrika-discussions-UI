@@ -1,7 +1,7 @@
-<div class="discuss-card-content cursor-pointer border">
+<div class="discuss-card-content cursor-pointer bottom-border">
     <div class="discuss-card-header">
         <!-- user name -->
-        <div class="user_name_div">
+        <div class="user_name_div d-flex">
             <span class="circle-text"><span
         class="circle-label">{{ discussionData?.user?.username | splitInitials }}</span></span>
 
@@ -9,6 +9,10 @@
                 <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
                 <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
                 <span class="timing">{{discussionData.lastposttime |pipeRelativeTime}}</span>
+            </div>
+
+            <div>
+                <img class="h-6" src="./assets/discussion-ui/images/more-vert.png">
             </div>
 
         </div>

@@ -7,21 +7,29 @@
     <div class="flex flex-1 custom discussion_outer_box">
         <div class="flex flex-3 flex-column discussion_main_box">
             <div class="flex flex-1 cursor-pointer margin-fix height-48" (click)="startDiscussion();logTelemetry($event)" data-toggle="modal" data-target="#myModal" id="start-discussion">
-                <a href="javascript:void(0)" class="flex flex-1 cursor-pointer margin-fix height-48" i18n-aria-label role="link">
+                <a href="javascript:void(0)" class="flex flex-1 cursor-pointer margin-fix height-48  w-6/12" i18n-aria-label role="link">
                     <div class="flex flex-1 items-center border discuss border-solid discuss-border ws-mat-primary-background-op100 ">
                         <div class="w-full discuss truncate">
-                            <span class="overflow ml-4 start-btn-hint mb-0 mat-body-1">Ask a question or post an idea</span>
+                            <span class="overflow ml-4 start-btn-hint mb-0 mat-body-1">Start a Conversation</span>
                         </div>
-                        <div class="discuss-home text-white flex items-center justify-center cursor-pointer mat-subheading-2">
+                        <div>
+                            <img src="./assets/discussion-ui/images/send-icon.png">
+                        </div>
+                        <!-- <div class="discuss-home text-white flex items-center justify-center cursor-pointer mat-subheading-2">
                             Start discussion
-                        </div>
+                        </div> -->
                     </div>
                     <!-- <div class="text-box">Ask a question or post an idea</div> 
               <div class="buton">start discussion</div> -->
                 </a>
             </div>
+            <ng-container *ngIf="discussionList  && discussionList.length >= 0" >
+                <div class="comment-count font-normal font-sans text-2xl py-6">
+                    {{discussionList.length}} Comments
+                </div>
+            </ng-container>
 
-            <ng-container>
+            <!-- <ng-container>
                 <div class="flex flex-1 flex-row margin-fix tab_margin">
                     <div class="flex flex-1 filter max-height-60">
                         <a href="javascript:void(0)" class="filter-option" [ngClass]="{'tabs-active' : currentFilter === 'recent',
@@ -34,7 +42,7 @@
                         <a class="all_category_link mat-subheading-2 margin-remove">All categories </a>
                     </div>
                 </div>
-            </ng-container>
+            </ng-container> -->
             <!-- <lib-app-loader *ngIf="showLoader"></lib-app-loader> -->
 
 
@@ -45,7 +53,8 @@
             </ng-container>
 
             <ng-container *ngIf=" !(discussionList && discussionList.length > 0)">
-                <div class="discuss-card-content cursor-pointer">
+                <!-- hidden is added in scss -->
+                <div class="discuss-card-content cursor-pointer ">
                     <div class="no-data-label">No Data</div>
                     <div>
                         <span>&nbsp;</span>
