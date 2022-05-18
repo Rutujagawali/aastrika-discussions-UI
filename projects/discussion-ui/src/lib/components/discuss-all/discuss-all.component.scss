@@ -86,7 +86,8 @@
 }
 
 .discuss-border {
-    border-radius: 4px;
+    padding: 8px 10px 8px 0;
+    border-radius: 20px;
     /*.75rem;*/
     border: 1px solid #DEDFE0;
     flex: 1;
@@ -105,6 +106,7 @@
 
 .discuss-card-content {
     z-index: 1!important;
+    display: none !important;
 }
 
 .discuss-home {
@@ -162,7 +164,7 @@
 }
 
 .start-btn-hint {
-    color: rgba(0, 0, 0, 0.54);
+    color: #808080 !important;
     display: block;
     margin-bottom: 0;
 }
@@ -178,6 +180,11 @@ a.all_category_link {
 
 .watching_link {
     display: none;
+}
+
+.comment-count{
+ color: rgba(128, 128, 128, 1);
+ ;
 }
 
 @media (max-width: 768px) {

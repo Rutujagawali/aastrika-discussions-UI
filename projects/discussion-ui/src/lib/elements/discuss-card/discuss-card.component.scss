@@ -9,6 +9,8 @@
 .discuss-card-label {
     color: #0074b6;
     display: flex;
+    font-size: 14px;
+    font-weight: 400;
     img {
         width: 20px;
         margin-right: 0.5rem;
@@ -22,6 +24,9 @@
     align-items: center;
 }
 
+.bottom-border{
+    border-bottom: 1px solid #DDDDDD;
+}
 .discuss-card-comments {
     display: flex;
     justify-content: space-between;
@@ -69,7 +74,7 @@
     .user_name_div {
         margin-bottom: 12px;
         .circle-text {
-            border-radius: 4px;
+            border-radius: 12px;
             width: 24px;
             height: 24px;
             // display: flex;
