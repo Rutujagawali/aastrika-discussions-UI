@@ -112,6 +112,8 @@ export class DiscussionDetailsComponent implements OnInit, OnDestroy {
       this.refreshPostData(this.currentActivePage);
       // this.getRealtedDiscussion(this.cid)
     }
+
+    // console.log("reply",this.topicId, this.widget, this.slug, this.cid)
   }
 
   // new method

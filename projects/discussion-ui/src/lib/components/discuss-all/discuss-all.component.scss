@@ -203,3 +203,23 @@ a.all_category_link {
         float: none;
     }
 }
+
+.circle-text {
+    border-radius: 12px;
+    width: 24px;
+    height: 24px;
+    // display: flex;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    background-color: #306933;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    line-height: 20px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    .circle-label {
+        font: 400 10px/12px Lato;
+    }
+}

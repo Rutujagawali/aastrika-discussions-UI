@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'lib-discuss-card',
@@ -8,8 +8,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DiscussCardComponent implements OnInit {
 
   @Input() discussionData: any;
+  dropdownContent = true;
 
-  constructor() { }
+  constructor(
+    private renderer: Renderer2,
+  ) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      // tslint:disable-next-line:no-string-literal
+      if (e.target['id'] !== 'group-actions') {
+        this.dropdownContent = true;
+      }
+    });
+   }
 
   ngOnInit() {
     console.log('discussionData', this.discussionData);
@@ -44,5 +54,17 @@ export class DiscussCardComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  onMenuClick() {
+    this.dropdownContent = !this.dropdownContent;
+  }
+
+  editTopic(){
+    console.log("edit");
+  }
+
+  deleteTopic(event){
+console.log(event)
   }
 }

@@ -11,9 +11,20 @@
                 <span class="timing">{{discussionData.lastposttime |pipeRelativeTime}}</span>
             </div>
 
-            <div>
+            <!-- <div>
                 <img class="h-6" src="./assets/discussion-ui/images/more-vert.png">
-            </div>
+            </div> -->
+
+            <!-- <div *ngIf="data?.uid === mainUid"> -->
+                <div class="kabab-menu" id="group-actions" (click)="onMenuClick()"></div>
+                <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
+                    <div>
+                        <div class="list" (click)="editTopic()">Edit
+                        </div>
+                        <div id="delete-topic" class="list" (click)="deleteTopic($event)">Delete</div>
+                    </div>
+                </div>
+            <!-- </div> -->
 
         </div>
         <!-- title -->

@@ -60,6 +60,7 @@ export class DiscussAllComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("router", this.routeParams)
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
       this.isWidget = true
@@ -124,6 +125,7 @@ export class DiscussAllComponent implements OnInit {
     const slug = _.trim(_.get(discussionData, 'slug'));
     // tslint:disable-next-line: max-line-length
     const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
+    // console.log("input", input)
     this.navigationService.navigate(input);
     this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discussionData.title, tid: discussionData.tid, cId: this.cIds });
 
