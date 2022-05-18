@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Renderer2 } from '@angular/core';
   styleUrls: ['./discuss-card.component.scss']
 })
 export class DiscussCardComponent implements OnInit {
-
+  replyFlag = false;
   @Input() discussionData: any;
   dropdownContent = true;
 
@@ -67,4 +67,15 @@ export class DiscussCardComponent implements OnInit {
   deleteTopic(event){
 console.log(event)
   }
+  showReply(){
+    console.log("reply=",this.replyFlag)
+    if(this.replyFlag == false){
+      this.replyFlag = true
+     
+    }
+    else{
+      this.replyFlag = false
+    }
+  }
+
 }

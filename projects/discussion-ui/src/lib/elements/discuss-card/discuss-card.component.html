@@ -1,80 +1,126 @@
 <div class="discuss-card-content cursor-pointer bottom-border">
-    <div class="discuss-card-header">
-        <!-- user name -->
-        <div class="user_name_div d-flex">
-            <span class="circle-text"><span
-        class="circle-label">{{ discussionData?.user?.username | splitInitials }}</span></span>
+  <div class="discuss-card-header">
+    <!-- user name -->
+    <div class="user_name_div d-flex">
+      <span class="circle-text"
+        ><span class="circle-label">{{
+          discussionData?.user?.username | splitInitials
+        }}</span></span
+      >
 
-            <div class="post_user_text_box">
-                <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
-                <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
-                <span class="timing">{{discussionData.lastposttime |pipeRelativeTime}}</span>
-            </div>
+      <div class="post_user_text_box">
+        <span
+          class="discuss-user-label"
+          *ngIf="discussionData?.user?.username"
+          >{{ discussionData?.user?.username }}</span
+        >
+        <span
+          class="discuss-user-label"
+          *ngIf="!discussionData?.user?.username"
+          >{{ "Anonymous" }}</span
+        >
+        <span class="timing">{{
+          discussionData.lastposttime | pipeRelativeTime
+        }}</span>
+      </div>
 
-            <!-- <div>
+      <!-- <div>
                 <img class="h-6" src="./assets/discussion-ui/images/more-vert.png">
             </div> -->
 
-            <!-- <div *ngIf="data?.uid === mainUid"> -->
-                <div class="kabab-menu" id="group-actions" (click)="onMenuClick()"></div>
-                <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
-                    <div>
-                        <div class="list" (click)="editTopic()">Edit
-                        </div>
-                        <div id="delete-topic" class="list" (click)="deleteTopic($event)">Delete</div>
-                    </div>
-                </div>
-            <!-- </div> -->
-
+      <!-- <div *ngIf="data?.uid === mainUid"> -->
+      <div class="kabab-menu" id="group-actions" (click)="onMenuClick()"></div>
+      <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
+        <div>
+          <div class="list" (click)="editTopic()">Edit</div>
+          <div id="delete-topic" class="list" (click)="deleteTopic($event)">
+            Delete
+          </div>
         </div>
-        <!-- title -->
-        <div class="discuss_main_text_box">
-            <a href="javascript:void(0)" i18n-aria-label role="link">
-                <h3 class='discuss-card-title' *ngIf="discussionData?.title" [innerHTML]="discussionData?.title"></h3>
-                <h3 class='discuss-card-title' *ngIf="!discussionData?.title && discussionData?.topic?.title" [innerHTML]="discussionData?.topic?.title"></h3>
-                <h3 class='discuss-card-title' *ngIf="!discussionData?.title && !discussionData?.topic?.title && discussionData?.name" [innerHTML]="discussionData?.name"></h3>
-            </a>
-        </div>
-        <div class="discuss-card-subtitle responsive">
-            <span *ngIf="discussionData?.category?.name" class="discuss-card-label">
-        <img src="./assets/discussion-ui/images/Buffer-512.svg" alt="Buffer-image">
-        {{discussionData.category.name}}
-      </span>
-            <!-- <span class="dot"></span> -->
-            <!-- <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
+      </div>
+      <!-- </div> -->
+      <!-- <span class="timing">{{discussionData.lastposttime | date}}</span> -->
+      <!-- <span class="timing">{{discussionData.lastposttime | pipeRelativeTime}}</span> -->
+    </div>
+  </div>
+  <!-- title -->
+  <div class="discuss_main_text_box">
+    <a href="javascript:void(0)" i18n-aria-label role="link">
+      <h3
+        class="discuss-card-title"
+        *ngIf="discussionData?.title"
+        [innerHTML]="discussionData?.title"
+      ></h3>
+      <h3
+        class="discuss-card-title"
+        *ngIf="!discussionData?.title && discussionData?.topic?.title"
+        [innerHTML]="discussionData?.topic?.title"
+      ></h3>
+      <h3
+        class="discuss-card-title"
+        *ngIf="
+          !discussionData?.title &&
+          !discussionData?.topic?.title &&
+          discussionData?.name
+        "
+        [innerHTML]="discussionData?.name"
+      ></h3>
+    </a>
+  </div>
+  <div class="discuss-card-subtitle responsive">
+    <span *ngIf="discussionData?.category?.name" class="discuss-card-label">
+      <img
+        src="./assets/discussion-ui/images/Buffer-512.svg"
+        alt="Buffer-image"
+      />
+      {{ discussionData.category.name }}
+    </span>
+    <!-- <span class="dot"></span> -->
+    <!-- <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
       <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
       <span class="timing">{{discussionData.lastposttime | date}}</span> -->
-        </div>
+  </div>
+  <div class="discuss-card-comments">
+    <div class="discuss-comments-area">
+      <span class="votes-content">
+        <span class="discuss-card-label">
+          Reply
+          <span class="views-content">
+            <img
+              src="./assets/discussion-ui/images/thumbs-up.png"
+              alt="thumbs-up-image"
+            />
+          </span>
+          <!-- <span>{{(discussionData.upvotes || 0) }}</span> -->
+        </span>
+  
+        <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">-->
+        <!-- <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} Votes</span> -->
+      </span>
+  
+      <!-- <span class="views-content ">
+          <img src="./assets/discussion-ui/images/trending_up.svg " alt="views-image ">
+          <span>{{discussionData.viewcount || 0}} Views</span>
+              </span> -->
+  
+      <!-- <div class="cursor-pointer comments-count " *ngIf="IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comment</div> -->
+      <!--<div class="cursor-pointer comments-count " *ngIf="!IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comments</div>-->
     </div>
-    <!-- <div class="tags margin-bottom-s">
-        <ng-container *ngIf="discussionData && discussionData.tags && discussionData.tags.length > 0">
-             <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> 
-             <span *ngFor="let tag of discussionData.tags" class="tag post_tag margin-right-s">
+  </div>
+  
+  <span class="votes-content">
+    <div class="row discuss-card-label">
+      <div *ngIf="!replyFlag" (click)="showReply()">view reply</div>
+      <div *ngIf="replyFlag" (click)="showReply()">hide reply</div>
+    </div>
+  </span>
+</div>
+<!-- <div class="tags margin-bottom-s">
+        <ng-container *ngIf="discussionData && discussionData.tags && discussionData.tags.length > 0"> -->
+<!-- <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> -->
+<!-- <span *ngFor="let tag of discussionData.tags" class="tag post_tag margin-right-s">
             {{tag.value}}
             </span>
-        </ng-container> 
+        </ng-container>
     </div> -->
-    <div class="discuss-card-comments ">
-        <div class="discuss-comments-area ">
-            <span class="votes-content ">
-                <span class = "discuss-card-label">
-                    Reply
-                </span>
-                <img src="./assets/discussion-ui/images/thumbs-up.png" alt="thumbs-up-image">
-                <span>{{(discussionData.upvotes || 0) }}</span>
-        <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">
-        <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} Votes</span>
-            </span>
-            <span class="views-content ">
-        <img src="./assets/discussion-ui/images/trending_up.svg " alt="views-image ">
-        <span>{{discussionData.viewcount || 0}} Views</span> -->
-            </span>
-        </div>
-     
-        <!-- <div class="cursor-pointer comments-count " *ngIf="IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comment</div>
-        <div class="cursor-pointer comments-count " *ngIf="!IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comments</div> -->
-    </div>
-    <div class = "discuss-card-label ">
-        Hide 4 Replies
-    </div>
-</div>
+
