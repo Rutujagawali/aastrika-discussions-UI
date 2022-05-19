@@ -24,6 +24,8 @@ export class DiscussAllComponent implements OnInit {
 
   @Input() context: any
   @Input() categoryAction;
+  @Input() topicId: any;
+  @Input() slug: string;
 
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
 
@@ -47,6 +49,8 @@ export class DiscussAllComponent implements OnInit {
   startDiscussionCategoryId: any;
   isWidget: boolean;
   showModerationModal = false
+  mainUid: number;
+  paginationData!: any;
 
   constructor(
     public router: Router,
@@ -61,6 +65,7 @@ export class DiscussAllComponent implements OnInit {
 
   ngOnInit() {
     console.log("router", this.routeParams)
+
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
       this.isWidget = true
@@ -69,6 +74,51 @@ export class DiscussAllComponent implements OnInit {
       this.cIds = this.configService.getCategories().result
       this.loadDiscussionData()
     }
+
+    if (!this.topicId && !this.slug) {
+      this.route.params.subscribe(params => {
+        this.routeParams = params;
+        this.slug = _.get(this.routeParams, 'slug');
+        this.topicId = _.get(this.routeParams, 'topicId');
+        this.refreshPostData(this.currentActivePage);
+        // this.getRealtedDiscussion(this.cid)
+      });
+    } else {
+      this.refreshPostData(this.currentActivePage);
+      // this.getRealtedDiscussion(this.cid)
+    }
+  }
+
+
+  async refreshPostData(page?: any) {
+    if (this.currentFilter === 'timestamp') {
+
+      this.discussionService.fetchTopicById(this.topicId, this.slug, page).subscribe(
+        (data: NSDiscussData.IDiscussionData) => {
+          this.appendResponse(data)
+        },
+        (err: any) => {
+          console.log('Error in fetching topics')
+          // toast message
+          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+        });
+    } else {
+      this.discussionService.fetchTopicByIdSort(this.topicId, 'voted', page).subscribe(
+        (data: NSDiscussData.IDiscussionData) => {
+          this.appendResponse(data)
+        },
+        (err: any) => {
+          console.log('Error in fetching topics')
+        });
+    }
+  }
+
+  appendResponse(data) {
+    this.data = data;
+    this.paginationData = _.get(data, 'pagination');
+    this.mainUid = _.get(data, 'loggedInUser.uid');
+    this.categoryId = _.get(data, 'cid');
+    this.topicId = _.get(data, 'tid');
   }
 
   async getForumIds() {
@@ -133,7 +183,7 @@ export class DiscussAllComponent implements OnInit {
   }
 
   acceptData(singleTagDetails) {
-    // debugger
+
     if (this.context) {
       singleTagDetails.cIds = this.cIds;
     }
@@ -314,4 +364,6 @@ export class DiscussAllComponent implements OnInit {
   closeModerationModal(event) {
     this.showModerationModal = false
   }
+
+  
 }

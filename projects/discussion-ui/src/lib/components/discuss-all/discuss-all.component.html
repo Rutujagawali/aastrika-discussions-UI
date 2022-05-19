@@ -54,9 +54,9 @@
 
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">
-                <div  *ngFor="let data of discussionList" id="discuss-card">
+                <div (click)="navigateToDiscussionDetails(data);logTelemetry($event)"   *ngFor="let data of discussionList" id="discuss-card">
                     <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
-                    <lib-discuss-card [discussionData]="data"></lib-discuss-card>
+                    <lib-discuss-card [discussionData]="data" ></lib-discuss-card>
                 </div>
             </ng-container>
 
@@ -81,5 +81,5 @@
     <lib-discuss-start (close)="closeModal($event)" *ngIf="showStartDiscussionModal" [categoryId]="startDiscussionCategoryId">
     </lib-discuss-start>
 
-    <lib-discuss-moderation (close)="closeModerationModal($event)" *ngIf="showModerationModal"></lib-discuss-moderation>
+    <lib-discuss-moderation  (close)="closeModerationModal($event)" *ngIf="showModerationModal"></lib-discuss-moderation>
 </div>

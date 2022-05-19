@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'lib-discussion-delete',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscussionDeleteComponent implements OnInit {
 
+  @Output() close = new EventEmitter();
+  @Output() delete = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
+
+  closeModal(){
+    this.close.emit(true)
+}
+
+deleteModal(){
+  this.delete.emit()
+}
+
+
 
 }

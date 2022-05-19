@@ -1,5 +1,13 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core';
-
+import { Component, OnInit, Input, Renderer2, Output, EventEmitter} from '@angular/core';
+import { DiscussionDeleteComponent } from '../../components/discussion-delete/discussion-delete.component';
+import { DiscussionService } from '../../services/discussion.service';
+// import { EventEmitter } from 'events';
+import { TelemetryUtilsService } from '../../telemetry-utils.service';
+import { ConfigService } from '../../services/config.service';
+import { NavigationServiceService } from '../../navigation-service.service';
+import * as CONSTANTS from './../../common/constants.json';
+/* tslint:disable */
+import _ from 'lodash';
 @Component({
   selector: 'lib-discuss-card',
   templateUrl: './discuss-card.component.html',
@@ -8,10 +16,19 @@ import { Component, OnInit, Input, Renderer2 } from '@angular/core';
 export class DiscussCardComponent implements OnInit {
   replyFlag = false;
   @Input() discussionData: any;
+  @Output() reply = new EventEmitter();
+  @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
+  showDeleteModel = false
+  topicId
+  cIds: any
 
   constructor(
     private renderer: Renderer2,
+    private discussionService: DiscussionService,
+    private telemetryUtils: TelemetryUtilsService,
+    private configService: ConfigService,
+    private navigationService: NavigationServiceService
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       // tslint:disable-next-line:no-string-literal
@@ -19,10 +36,11 @@ export class DiscussCardComponent implements OnInit {
         this.dropdownContent = true;
       }
     });
-   }
+  }
 
   ngOnInit() {
     console.log('discussionData', this.discussionData);
+      // this.cIds = this.configService.getCategories().result
   }
 
   public getBgColor(tagTitle: any) {
@@ -60,22 +78,61 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  editTopic(){
+  editTopic() {
     console.log("edit");
   }
 
-  deleteTopic(event){
-console.log(event)
+  deleteTopic(event, topicData) {
+    console.log(event, topicData)
+    this.topicId = topicData
+    this.showDeleteModel = true
   }
-  showReply(){
-    console.log("reply=",this.replyFlag)
-    if(this.replyFlag == false){
+
+  showReply() {
+    console.log("reply=", this.replyFlag)
+    if (this.replyFlag == false) {
       this.replyFlag = true
-     
+
     }
-    else{
+    else {
       this.replyFlag = false
     }
   }
 
+  closeDeleteModel(event){
+    this.showDeleteModel = false
+  }
+
+  deleteTopicHandler(){
+    this.discussionService.deleteTopic(this.topicId).subscribe(data => {
+      //this.location.back();
+      console.log(data)
+    }, error => {
+      console.log('error while deleting', error);
+    });
+    this.showDeleteModel = false
+  }
+
+  replyHandler(data){
+    console.log("reply data", data)
+    //this.reply.emit(data);
+
+    // const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
+    // if (matchedTopic) {
+    //   this.telemetryUtils.deleteContext(matchedTopic);
+    // }
+
+    // this.telemetryUtils.uppendContext({
+    //   id: _.get(this.discussionData, 'tid'),
+    //   type: 'Topic'
+    // });
+
+    // const slug = _.trim(_.get(this.discussionData, 'slug'));
+    // // tslint:disable-next-line: max-line-length
+    // const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
+    // // console.log("input", input)
+    // this.navigationService.navigate(input);
+    // this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: this.discussionData.title, tid: this.discussionData.tid, cId: this.cIds });
+  }
+  
 }

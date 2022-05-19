@@ -33,7 +33,7 @@
       <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
         <div>
           <div class="list" (click)="editTopic()">Edit</div>
-          <div id="delete-topic" class="list" (click)="deleteTopic($event)">
+          <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)">
             Delete
           </div>
         </div>
@@ -83,15 +83,18 @@
   <div class="discuss-card-comments">
     <div class="discuss-comments-area">
       <span class="votes-content">
-        <span class="discuss-card-label">
+        <!-- (click) = "replyHandler(discussionData)" -->
+        <div (click) = "replyHandler(discussionData)"   class="discuss-card-label">
           Reply
-          <span class="views-content">
-            <img
-              src="./assets/discussion-ui/images/thumbs-up.png"
-              alt="thumbs-up-image"
-            />
-          </span>
+         
           <!-- <span>{{(discussionData.upvotes || 0) }}</span> -->
+        </div>
+
+        <span class="views-content">
+          <img
+            src="./assets/discussion-ui/images/thumbs-up.png"
+            alt="thumbs-up-image"
+          />
         </span>
   
         <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">-->
@@ -123,4 +126,4 @@
             </span>
         </ng-container>
     </div> -->
-
+<lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>

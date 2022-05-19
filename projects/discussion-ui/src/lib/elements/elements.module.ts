@@ -10,6 +10,8 @@ import { PipesModule } from './../pipes/pipes.module';
 
 import { PostReplyComponent } from './post-reply/post-reply.component';
 import { SlidersComponent } from './sliders/sliders.component';
+import { DiscussionDeleteComponent } from '../components/discussion-delete/discussion-delete.component';
+
 @NgModule({
   declarations: [
     PostReplyComponent,
@@ -18,7 +20,8 @@ import { SlidersComponent } from './sliders/sliders.component';
     AvatarPhotoComponent,
     AppLoaderComponent,
     RelatedDiscussionComponent,
-    SlidersComponent
+    SlidersComponent,
+    DiscussionDeleteComponent
   ],
   imports: [
     CommonModule, PipesModule,
@@ -33,7 +36,8 @@ import { SlidersComponent } from './sliders/sliders.component';
     RelatedDiscussionComponent,
     AppLoaderComponent,
     PostReplyComponent,
-    SlidersComponent
+    SlidersComponent,
+    DiscussionDeleteComponent
   ]
 })
 export class ElementsModule { }
