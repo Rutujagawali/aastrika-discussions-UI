@@ -1,4 +1,4 @@
-<div class="discuss-card-content cursor-pointer bottom-border">
+<div class="discuss-card-content cursor-pointer bottom-border" *ngIf='state === discussall'>
   <div class="discuss-card-header">
     <!-- user name -->
     <div class="user_name_div d-flex">
@@ -33,7 +33,7 @@
       <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
         <div>
           <div class="list" (click)="editTopic()">Edit</div>
-          <div id="delete-topic" class="list" (click)="deleteTopic($event)">
+          <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)">
             Delete
           </div>
         </div>
@@ -83,7 +83,7 @@
   <div class="discuss-card-comments">
     <div class="discuss-comments-area">
       <span class="votes-content">
-        <span class="discuss-card-label">
+        <span class="discuss-card-label" (click)="replyHandler(discussionData)">
           Reply
           <span class="views-content">
             <img
@@ -115,6 +115,7 @@
     </div>
   </span>
 </div>
+
 <!-- <div class="tags margin-bottom-s">
         <ng-container *ngIf="discussionData && discussionData.tags && discussionData.tags.length > 0"> -->
 <!-- <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> -->
