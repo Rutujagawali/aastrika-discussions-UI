@@ -16,13 +16,15 @@ import _ from 'lodash';
 export class DiscussCardComponent implements OnInit {
   replyFlag = false;
   @Input() discussionData: any;
+  @Input() cid: any;
   @Output() reply = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
   showDeleteModel = false
   topicId
-  cIds: any
-
+  // cIds: any
+  state =  'discussall'
+  slug: any;
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -40,7 +42,9 @@ export class DiscussCardComponent implements OnInit {
 
   ngOnInit() {
     console.log('discussionData', this.discussionData);
-      // this.cIds = this.configService.getCategories().result
+      //this.cIds = this.configService.getCategories().result
+      this.topicId = _.get(this.discussionData, 'tid')
+      this.slug =  _.trim(_.get(this.discussionData, 'slug'));
   }
 
   public getBgColor(tagTitle: any) {
@@ -114,25 +118,26 @@ export class DiscussCardComponent implements OnInit {
   }
 
   replyHandler(data){
+    this.state = 'detailsPage'
     console.log("reply data", data)
     //this.reply.emit(data);
 
-    // const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
-    // if (matchedTopic) {
-    //   this.telemetryUtils.deleteContext(matchedTopic);
-    // }
+    const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
+    if (matchedTopic) {
+      this.telemetryUtils.deleteContext(matchedTopic);
+    }
 
-    // this.telemetryUtils.uppendContext({
-    //   id: _.get(this.discussionData, 'tid'),
-    //   type: 'Topic'
-    // });
+    this.telemetryUtils.uppendContext({
+      id: _.get(this.discussionData, 'tid'),
+      type: 'Topic'
+    });
 
-    // const slug = _.trim(_.get(this.discussionData, 'slug'));
-    // // tslint:disable-next-line: max-line-length
-    // const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
-    // // console.log("input", input)
-    // this.navigationService.navigate(input);
-    // this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: this.discussionData.title, tid: this.discussionData.tid, cId: this.cIds });
+    const slug = _.trim(_.get(this.discussionData, 'slug'));
+    // tslint:disable-next-line: max-line-length
+    const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
+    // console.log("input", input)
+    this.navigationService.navigate(input);
+    this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: this.discussionData.title, tid: this.discussionData.tid, cId: this.cid });
   }
   
 }

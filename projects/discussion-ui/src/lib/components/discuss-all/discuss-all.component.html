@@ -8,7 +8,7 @@
         <div class="flex flex-3 flex-column discussion_main_box">
             <div class="flex gap-2 items-center">
                 <span class="circle-text"><span
-                    class="circle-label">{{ data?.user?.username | splitInitials }}</span></span>
+                    class="circle-label">{{ context.userName | createInitials }}</span></span>
                 <div class="flex flex-1 cursor-pointer margin-fix height-48" (click)="startDiscussion();logTelemetry($event)" data-toggle="modal" data-target="#myModal" id="start-discussion">
                     <a href="javascript:void(0)" class="flex flex-1 cursor-pointer margin-fix height-48  w-6/12" i18n-aria-label role="link">
                         <div class="flex flex-1 items-center border discuss border-solid discuss-border ws-mat-primary-background-op100 ">
