@@ -11,6 +11,7 @@ import { NSDiscussData } from '../../models/discuss.model';
 import { DiscussStartComponent } from '../discuss-start/discuss-start.component';
 import { Subscription } from 'rxjs';
 import { NavigationServiceService } from '../../navigation-service.service';
+import { DiscussionUIService } from '../../services/discussion-ui.service';
 // import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 /* tslint:enable */
@@ -51,6 +52,7 @@ export class DiscussAllComponent implements OnInit {
   showModerationModal = false
   mainUid: number;
   paginationData!: any;
+  displayState
 
   constructor(
     public router: Router,
@@ -59,12 +61,14 @@ export class DiscussAllComponent implements OnInit {
     private configService: ConfigService,
     public activatedRoute: ActivatedRoute,
     private telemetryUtils: TelemetryUtilsService,
-    private navigationService: NavigationServiceService
+    private navigationService: NavigationServiceService,
+    private discussionUIService: DiscussionUIService
     // private modalService: BsModalService
   ) { }
 
   ngOnInit() {
     console.log("router", this.routeParams)
+    this.discussionUIService.getDisplay().subscribe( data =>  this.displayState = data);
 
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
@@ -105,6 +109,7 @@ export class DiscussAllComponent implements OnInit {
     } else {
       this.discussionService.fetchTopicByIdSort(this.topicId, 'voted', page).subscribe(
         (data: NSDiscussData.IDiscussionData) => {
+          console.log("res",data, this.topicId)
           this.appendResponse(data)
         },
         (err: any) => {

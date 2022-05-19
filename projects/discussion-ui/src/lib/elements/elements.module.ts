@@ -11,6 +11,7 @@ import { PipesModule } from './../pipes/pipes.module';
 import { PostReplyComponent } from './post-reply/post-reply.component';
 import { SlidersComponent } from './sliders/sliders.component';
 import { DiscussionDeleteComponent } from '../components/discussion-delete/discussion-delete.component';
+// import { ReplyCommentComponent } from './reply-comment/reply-comment.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DiscussionDeleteComponent } from '../components/discussion-delete/discu
     AppLoaderComponent,
     RelatedDiscussionComponent,
     SlidersComponent,
-    DiscussionDeleteComponent
+    DiscussionDeleteComponent,
+    // ReplyCommentComponent
   ],
   imports: [
     CommonModule, PipesModule,

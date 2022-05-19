@@ -4,7 +4,7 @@
         data-target="#myModal" id="start-discussion">Start Discussion</button> -->
 
 
-    <div class="flex flex-1 custom discussion_outer_box">
+    <div *ngIf="!displayState" class="flex flex-1 custom discussion_outer_box">
         <div class="flex flex-3 flex-column discussion_main_box">
             <div class="flex gap-2 items-center">
                 <span class="circle-text"><span
@@ -54,9 +54,9 @@
 
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">
-                <div (click)="navigateToDiscussionDetails(data);logTelemetry($event)"   *ngFor="let data of discussionList" id="discuss-card">
+                <div *ngFor="let data of discussionList" id="discuss-card">
                     <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
-                    <lib-discuss-card [discussionData]="data" ></lib-discuss-card>
+                    <lib-discuss-card [discussionData]="data" [cid]="cIds"></lib-discuss-card>
                 </div>
             </ng-container>
 
@@ -82,4 +82,7 @@
     </lib-discuss-start>
 
     <lib-discuss-moderation  (close)="closeModerationModal($event)" *ngIf="showModerationModal"></lib-discuss-moderation>
+    <div *ngIf="displayState">
+        <lib-reply-comment></lib-reply-comment>
+    </div>
 </div>

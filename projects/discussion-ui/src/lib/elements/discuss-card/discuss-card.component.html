@@ -1,4 +1,4 @@
-<div class="discuss-card-content cursor-pointer bottom-border" *ngIf='state === discussall'>
+<div class="discuss-card-content cursor-pointer bottom-border">
   <div class="discuss-card-header">
     <!-- user name -->
     <div class="user_name_div d-flex">
@@ -44,7 +44,7 @@
     </div>
   </div>
   <!-- title -->
-  <div class="discuss_main_text_box">
+  <div class="discuss_main_text_box display-hidden">
     <a href="javascript:void(0)" i18n-aria-label role="link">
       <h3
         class="discuss-card-title"
@@ -67,19 +67,22 @@
       ></h3>
     </a>
   </div>
-  <div class="discuss-card-subtitle responsive">
+  <div class="discuss-card-subtitle responsive display-hidden">
     <span *ngIf="discussionData?.category?.name" class="discuss-card-label">
       <img
         src="./assets/discussion-ui/images/Buffer-512.svg"
         alt="Buffer-image"
       />
-      {{ discussionData.category.name }}
+      <!-- {{ discussionData.category.name }} -->
     </span>
     <!-- <span class="dot"></span> -->
     <!-- <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
       <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
       <span class="timing">{{discussionData.lastposttime | date}}</span> -->
   </div>
+<!-- comment -->
+  <p class="discussion-card-comment" [innerHTML]="discussionData?.teaser.content"></p>
+
   <div class="discuss-card-comments">
     <div class="discuss-comments-area">
       <span class="votes-content">
@@ -87,7 +90,7 @@
           Reply
          
           <!-- <span>{{(discussionData.upvotes || 0) }}</span> -->
-        </div>
+        </span>
 
         <span class="views-content">
           <img
@@ -126,4 +129,6 @@
             </span>
         </ng-container>
     </div> -->
+    
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
+

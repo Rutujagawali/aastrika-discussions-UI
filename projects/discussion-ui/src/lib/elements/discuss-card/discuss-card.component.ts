@@ -8,6 +8,7 @@ import { NavigationServiceService } from '../../navigation-service.service';
 import * as CONSTANTS from './../../common/constants.json';
 /* tslint:disable */
 import _ from 'lodash';
+import { DiscussionUIService } from '../../services/discussion-ui.service';
 @Component({
   selector: 'lib-discuss-card',
   templateUrl: './discuss-card.component.html',
@@ -23,14 +24,14 @@ export class DiscussCardComponent implements OnInit {
   showDeleteModel = false
   topicId
   // cIds: any
-  state =  'discussall'
-  slug: any;
+  // showReplyFlag = false
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
     private telemetryUtils: TelemetryUtilsService,
     private configService: ConfigService,
-    private navigationService: NavigationServiceService
+    private navigationService: NavigationServiceService,
+    private discussionUIService: DiscussionUIService
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       // tslint:disable-next-line:no-string-literal
@@ -41,10 +42,9 @@ export class DiscussCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result
-      this.topicId = _.get(this.discussionData, 'tid')
-      this.slug =  _.trim(_.get(this.discussionData, 'slug'));
   }
 
   public getBgColor(tagTitle: any) {
@@ -118,26 +118,13 @@ export class DiscussCardComponent implements OnInit {
   }
 
   replyHandler(data){
-    this.state = 'detailsPage'
+    // this.showReplyFlag = true
+    this.discussionUIService.setDisplay(true)
+    this.discussionUIService.setReplyData(this.discussionData)
     console.log("reply data", data)
     //this.reply.emit(data);
 
-    const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
-    if (matchedTopic) {
-      this.telemetryUtils.deleteContext(matchedTopic);
-    }
-
-    this.telemetryUtils.uppendContext({
-      id: _.get(this.discussionData, 'tid'),
-      type: 'Topic'
-    });
-
-    const slug = _.trim(_.get(this.discussionData, 'slug'));
-    // tslint:disable-next-line: max-line-length
-    const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
-    // console.log("input", input)
-    this.navigationService.navigate(input);
-    this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: this.discussionData.title, tid: this.discussionData.tid, cId: this.cid });
+   
   }
   
 }

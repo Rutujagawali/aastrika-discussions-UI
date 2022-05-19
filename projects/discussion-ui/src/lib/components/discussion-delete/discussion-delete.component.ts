@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'lib-discussion-delete',
   templateUrl: './discussion-delete.component.html',
-  styleUrls: ['./discussion-delete.component.css']
+  styleUrls: ['./discussion-delete.component.scss']
 })
 export class DiscussionDeleteComponent implements OnInit {
 
