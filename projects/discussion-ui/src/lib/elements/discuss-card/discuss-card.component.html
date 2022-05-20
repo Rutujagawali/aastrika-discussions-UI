@@ -34,7 +34,7 @@
       <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
         <div>
           <div class="list" (click)="editTopic()">Edit</div>
-          <div id="delete-topic" class="list" (click)="deleteTopic($event)">
+          <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)">
             Delete
           </div>
         </div>
@@ -46,7 +46,7 @@
 
   </div>
   <!-- title -->
-  <div class="discuss_main_text_box">
+  <div class="discuss_main_text_box display-hidden">
     <a href="javascript:void(0)" i18n-aria-label role="link">
       <h3
         class="discuss-card-title"
@@ -69,25 +69,26 @@
       ></h3>
     </a>
   </div>
-  <div class="discuss-card-subtitle responsive">
+  <div class="discuss-card-subtitle responsive display-hidden">
     <span *ngIf="discussionData?.category?.name" class="discuss-card-label">
       <img
         src="./assets/discussion-ui/images/Buffer-512.svg"
         alt="Buffer-image"
       />
-      {{ discussionData.category.name }}
+      <!-- {{ discussionData.category.name }} -->
     </span>
     <!-- <span class="dot"></span> -->
     <!-- <span class="discuss-user-label" *ngIf="discussionData?.user?.username">{{discussionData?.user?.username}}</span>
       <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
       <span class="timing">{{discussionData.lastposttime | date}}</span> -->
   </div>
- 
-  {{data?.posts}}
-   <div class="discuss-card-comments" >
+<!-- comment -->
+  <p class="discussion-card-comment" [innerHTML]="discussionData?.teaser.content"></p>
+
+  <div class="discuss-card-comments">
     <div class="discuss-comments-area">
       <span class="votes-content">
-        <span class="discuss-card-label">
+        <span class="discuss-card-label" (click)="replyHandler(discussionData)">
           Reply
           
           <span class="views-content " *ngFor="let post of data?.posts">
@@ -101,10 +102,11 @@
               src="./assets/discussion-ui/images/red-thumbs-up.png"
               alt="red-thumbs-up" *ngIf="likebtn" />
             </a>
-              <!-- <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
              </span>
            <span *ngIf="discussionData.upvotes > 0">{{(discussionData.upvotes || 0) }}</span>
         </span>
+
+        
   
         <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">-->
         <!-- <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} Votes</span> -->
@@ -133,6 +135,7 @@
     </div>
   </span>
 </div>
+
 <!-- <div class="tags margin-bottom-s">
         <ng-container *ngIf="discussionData && discussionData.tags && discussionData.tags.length > 0"> -->
 <!-- <span *ngFor="let tag of discussionData.tags" class="tag" [ngStyle]="getBgColor(tag.value)"> -->
@@ -141,4 +144,6 @@
             </span>
         </ng-container>
     </div> -->
+    
+<lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
 

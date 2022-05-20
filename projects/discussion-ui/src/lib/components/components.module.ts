@@ -20,7 +20,8 @@ import { TagAllDiscussionComponent } from './tag-all-discussion/tag-all-discussi
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TrendingTagsComponent } from './trending-tags/trending-tags.component';
 import { LeaderBoardComponent } from './leader-board/leaderboard-component';
-import { DiscussionDeleteComponent } from './discussion-delete/discussion-delete.component';
+import { ReplyCommentComponent } from '../elements/reply-comment/reply-comment.component';
+// import { DiscussionDeleteComponent } from './discussion-delete/discussion-delete.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DiscussionDeleteComponent } from './discussion-delete/discussion-delete
     TrendingTagsComponent,
     LeaderBoardComponent,
     DiscussModerationComponent,
-    DiscussionDeleteComponent
+    // DiscussionDeleteComponent
+    ReplyCommentComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { DiscussionDeleteComponent } from './discussion-delete/discussion-delete
     TagAllDiscussionComponent,
     TrendingTagsComponent,
     LeaderBoardComponent,
+    ReplyCommentComponent
   ],
   providers: [
     DiscussionService, ConfigService

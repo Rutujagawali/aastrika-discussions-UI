@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, Renderer2,EventEmitter, Output } from '@angular/core';
-import { FormGroup,FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, Renderer2, Output, EventEmitter} from '@angular/core';
+import { DiscussionDeleteComponent } from '../../components/discussion-delete/discussion-delete.component';
+import { DiscussionService } from '../../services/discussion.service';
+// import { EventEmitter } from 'events';
 import { TelemetryUtilsService } from '../../telemetry-utils.service';
-import { NSDiscussData } from './../../models/discuss.model';
-import { DiscussionService } from './../../services/discussion.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import * as CONSTANTS from '../../common/constants.json';
-import * as _ from 'lodash'
 import { ConfigService } from '../../services/config.service';
 import { NavigationServiceService } from '../../navigation-service.service';
-
+import * as CONSTANTS from './../../common/constants.json';
+/* tslint:disable */
+import _ from 'lodash';
+import { DiscussionUIService } from '../../services/discussion-ui.service';
+import { NSDiscussData } from '../../models/discuss.model';
 @Component({
   selector: 'lib-discuss-card',
   templateUrl: './discuss-card.component.html',
@@ -20,32 +21,32 @@ export class DiscussCardComponent implements OnInit {
   likebtn = false;
 
   @Input() discussionData: any;
-  @Input() topicId: any;
-  @Input() slug: string;
-  @Input() widget: boolean;
+  @Input() cid: any;
+  @Output() reply = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
-
+  @Input() slug: string;
+  @Input() topicId: any;
   dropdownContent = true;
-  postAnswerForm!: FormGroup;
-  currentActivePage = 1;
-  UpdatePostAnswerForm: FormGroup;
-  replyForm: FormGroup;
-  currentFilter = 'timestamp';
-  fetchSingleCategoryLoader = false;
-  routeParams: any;
+  showDeleteModel = false
+  currentActivePage: any;
+  formBuilder: any;
+  postAnswerForm: any;
+  UpdatePostAnswerForm: any;
+  replyForm: any;
+  currentFilter: string;
   data: any;
-  paginationData!: any;
-  mainUid: number;
+  paginationData: any;
+  mainUid: any;
   categoryId: any;
-
+  // cIds: any
+  // showReplyFlag = false
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
     private telemetryUtils: TelemetryUtilsService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private configService: ConfigService,
     private navigationService: NavigationServiceService,
+    private discussionUIService: DiscussionUIService
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       // tslint:disable-next-line:no-string-literal
@@ -53,29 +54,12 @@ export class DiscussCardComponent implements OnInit {
         this.dropdownContent = true;
       }
     });
-   }
+  }
 
   ngOnInit() {
+    // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
-    this.initializeFormFiled();
-    if(this.widget){
-      this.fetchSingleCategoryLoader = true
-    }
-    if (!this.topicId && !this.slug) {
-      this.route.params.subscribe(params => {
-        this.routeParams = params;
-        this.slug = _.get(this.routeParams, 'slug');
-        this.topicId = _.get(this.routeParams, 'topicId');
-        this.refreshPostData(this.currentActivePage);
-        // this.getRealtedDiscussion(this.cid)
-      });
-    } else {
-      this.refreshPostData(this.currentActivePage);
-      // this.getRealtedDiscussion(this.cid)
-    }
-
-
-    this.telemetryUtils.logImpression(NSDiscussData.IPageName.DETAILS);
+      //this.cIds = this.configService.getCategories().result
   }
 
   public getBgColor(tagTitle: any) {
@@ -113,20 +97,23 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  editTopic(){
+  editTopic() {
     console.log("edit");
   }
 
-  deleteTopic(event){
-console.log(event)
+  deleteTopic(event, topicData) {
+    console.log(event, topicData)
+    this.topicId = topicData
+    this.showDeleteModel = true
   }
-  showReply(){
-    console.log("reply=",this.replyFlag)
-    if(this.replyFlag == false){
+
+  showReply() {
+    console.log("reply=", this.replyFlag)
+    if (this.replyFlag == false) {
       this.replyFlag = true
-     
+
     }
-    else{
+    else {
       this.replyFlag = false
     }
  
@@ -257,4 +244,28 @@ console.log(event)
     this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discuss.title, tid: discuss.tid });
   }
 
+  closeDeleteModel(event){
+    this.showDeleteModel = false
+  }
+
+  deleteTopicHandler(){
+    this.discussionService.deleteTopic(this.topicId).subscribe(data => {
+      //this.location.back();
+      console.log(data)
+    }, error => {
+      console.log('error while deleting', error);
+    });
+    this.showDeleteModel = false
+  }
+
+  replyHandler(data){
+    // this.showReplyFlag = true
+    this.discussionUIService.setDisplay(true)
+    this.discussionUIService.setReplyData(this.discussionData)
+    console.log("reply data", data)
+    //this.reply.emit(data);
+
+   
+  }
+  
 }
