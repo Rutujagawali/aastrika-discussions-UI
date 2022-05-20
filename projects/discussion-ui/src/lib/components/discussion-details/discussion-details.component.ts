@@ -179,6 +179,7 @@ export class DiscussionDetailsComponent implements OnInit, OnDestroy {
     this.mainUid = _.get(data, 'loggedInUser.uid');
     this.categoryId = _.get(data, 'cid');
     this.topicId = _.get(data, 'tid');
+    console.log("data=",this.data)
   }
 
 

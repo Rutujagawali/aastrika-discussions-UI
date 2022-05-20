@@ -1,6 +1,7 @@
 <div class="discuss-card-content cursor-pointer bottom-border">
   <div class="discuss-card-header">
     <!-- user name -->
+    
     <div class="user_name_div d-flex">
       <span class="circle-text"
         ><span class="circle-label">{{
@@ -42,6 +43,7 @@
       <!-- <span class="timing">{{discussionData.lastposttime | date}}</span> -->
       <!-- <span class="timing">{{discussionData.lastposttime | pipeRelativeTime}}</span> -->
     </div>
+
   </div>
   <!-- title -->
   <div class="discuss_main_text_box">
@@ -80,18 +82,28 @@
       <span class="discuss-user-label" *ngIf="!(discussionData?.user?.username)">{{'Anonymous'}}</span>
       <span class="timing">{{discussionData.lastposttime | date}}</span> -->
   </div>
-  <div class="discuss-card-comments">
+ 
+  {{data?.posts}}
+   <div class="discuss-card-comments" >
     <div class="discuss-comments-area">
       <span class="votes-content">
         <span class="discuss-card-label">
           Reply
-          <span class="views-content">
-            <img
-              src="./assets/discussion-ui/images/thumbs-up.png"
-              alt="thumbs-up-image"
-            />
-          </span>
-          <!-- <span>{{(discussionData.upvotes || 0) }}</span> -->
+          
+          <span class="views-content " *ngFor="let post of data?.posts">
+            <a href="javascript:void(0)" role="link" *ngIf="!post.upvoted"
+                (click)="upvote(post);logTelemetry($event, post)" aria-label="upvote the post" id="up-vote">
+                <img src="./assets/discussion-ui/images/thumbs-up.png" alt="thumbs-up-image"/>
+            </a>
+            <a href="javascript:void(0)" *ngIf="post.upvoted" role="link"
+            (click)="deleteVote(post);logTelemetry($event, post)" aria-label="remove upvote">
+              <img 
+              src="./assets/discussion-ui/images/red-thumbs-up.png"
+              alt="red-thumbs-up" *ngIf="likebtn" />
+            </a>
+              <!-- <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+             </span>
+           <span *ngIf="discussionData.upvotes > 0">{{(discussionData.upvotes || 0) }}</span>
         </span>
   
         <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">-->
@@ -110,8 +122,14 @@
   
   <span class="votes-content">
     <div class="row discuss-card-label">
-      <div *ngIf="!replyFlag" (click)="showReply()">view reply</div>
-      <div *ngIf="replyFlag" (click)="showReply()">hide reply</div>
+        <!-- <span *ngIf="data?.postcount-1 > 0" aria-label="comments count">
+            {{data?.postcount-1}}
+            Hide Replies
+          </span>
+          <span *ngIf="data?.postcount-1 <=0" aria-label="comments count">
+            View Replies</span> -->
+      <div  *ngIf="!replyFlag" (click)="showReply()">View Replies</div>
+      <div *ngIf="replyFlag" (click)="showReply()">Hide Replies</div>
     </div>
   </span>
 </div>
