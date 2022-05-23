@@ -6,6 +6,12 @@
     font-weight: 700;
 }
 
+.label-wrapper{
+    margin-left: 32px !important;
+    padding-top: 5px;
+
+}
+
 .discuss-card-label {
     color: #0074b6;
     display: flex;
@@ -59,8 +65,8 @@
         .views-content img {
             // height: 24px;
             // width: 24px;
-            height: 20px;
-            width: 20px;
+            height: 13px;
+            width: 14px;
         }
         .votes-content span,
         .views-content span {
