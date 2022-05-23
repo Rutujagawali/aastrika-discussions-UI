@@ -93,14 +93,11 @@
         </span>
 
         <span class="views-content">
-          <img
-            src="./assets/discussion-ui/images/thumbs-up.png"
-            alt="thumbs-up-image"
-          />
+        
+          <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="like"  alt="thumbs-up-image"/>
+          <img *ngIf="!like" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
-  
-        <!-- <img src="./assets/discussion-ui/images/swap_vert.svg " alt="votes-image ">-->
-        <!-- <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} Votes</span> -->
+      <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
       </span>
   
       <!-- <span class="views-content ">
@@ -114,9 +111,9 @@
   </div>
   
   <span class="votes-content">
-    <div class="row discuss-card-label">
-      <div *ngIf="!replyFlag" (click)="showReply()">view reply</div>
-      <div *ngIf="replyFlag" (click)="showReply()">hide reply</div>
+    <div class="row discuss-card-label label-wrapper">
+      <div *ngIf="!replyFlag" (click)="showReply()">View Reply</div>
+      <div *ngIf="replyFlag" (click)="showReply()">Hide Reply</div>
     </div>
   </span>
 </div>

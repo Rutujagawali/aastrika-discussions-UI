@@ -9,6 +9,7 @@ import * as CONSTANTS from './../../common/constants.json';
 /* tslint:disable */
 import _ from 'lodash';
 import { DiscussionUIService } from '../../services/discussion-ui.service';
+import { NSDiscussData } from './../../models/discuss.model';
 @Component({
   selector: 'lib-discuss-card',
   templateUrl: './discuss-card.component.html',
@@ -18,11 +19,19 @@ export class DiscussCardComponent implements OnInit {
   replyFlag = false;
   @Input() discussionData: any;
   @Input() cid: any;
+  @Input() slug?: string;
   @Output() reply = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
   showDeleteModel = false
-  topicId
+  @Input() topicId:number
+  like = true 
+  currentActivePage = 1;
+  currentFilter = 'timestamp'; 
+  data: any;
+  paginationData!: any;
+  mainUid: number;
+  categoryId: any;
   // cIds: any
   // showReplyFlag = false
   constructor(
@@ -39,14 +48,15 @@ export class DiscussCardComponent implements OnInit {
         this.dropdownContent = true;
       }
     });
+    
   }
 
   ngOnInit() {
     // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result
+     
   }
-
   public getBgColor(tagTitle: any) {
     const bgColor = this.stringToColor(tagTitle.toLowerCase());
     const color = this.getContrast();
@@ -123,8 +133,65 @@ export class DiscussCardComponent implements OnInit {
     this.discussionUIService.setReplyData(this.discussionData)
     console.log("reply data", data)
     //this.reply.emit(data);
-
-   
   }
-  
+
+  /* to handle like and dislike */ 
+  upvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: 1,
+    };
+    this.processVote(discuss, req);
+  }
+
+  downvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: -1,
+    };
+    this.processVote(discuss, req);
+  }
+  private async processVote(discuss: any, req: any) {
+    if (discuss && discuss.uid) {
+      this.discussionService.votePost(discuss.tid, req).subscribe(
+        () => {
+          // toast
+          // this.openSnackbar(this.toastSuccess.nativeElement.value);
+          this.like = false
+          this.refreshPostData(this.currentActivePage);
+        },
+        (err: any) => {
+          // toast
+          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+        });
+    }
+  }
+  async refreshPostData(page?: any) {
+    if (this.currentFilter === 'timestamp') {
+      console.log(this.topicId)
+      this.discussionService.fetchTopicById(this.topicId, this.slug, page).subscribe(
+        (data: NSDiscussData.IDiscussionData) => {
+          this.appendResponse(data)
+        },
+        (err: any) => {
+          console.log('Error in fetching topics')
+          // toast message
+          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+        });
+    } else {
+      this.discussionService.fetchTopicByIdSort(this.topicId, 'voted', page).subscribe(
+        (data: NSDiscussData.IDiscussionData) => {
+          this.appendResponse(data)
+        },
+        (err: any) => {
+          console.log('Error in fetching topics')
+        });
+    }
+  }
+
+  appendResponse(data) {
+    this.data = data;
+    this.paginationData = _.get(data, 'pagination');
+    this.mainUid = _.get(data, 'loggedInUser.uid');
+    this.categoryId = _.get(data, 'cid');
+    this.topicId = _.get(data, 'tid');
+  }
 }
