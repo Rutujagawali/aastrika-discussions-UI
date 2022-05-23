@@ -52,7 +52,7 @@ export class DiscussAllComponent implements OnInit {
   showModerationModal = false
   mainUid: number;
   paginationData!: any;
-  displayState
+  displayState = 'VIEW ALL'
 
   constructor(
     public router: Router,
@@ -67,8 +67,9 @@ export class DiscussAllComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("router", this.routeParams)
-    this.discussionUIService.getDisplay().subscribe( data =>  this.displayState = data);
+    this.discussionUIService.getDisplay().subscribe( data =>  {
+      this.displayState = data
+    });
 
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
@@ -78,54 +79,7 @@ export class DiscussAllComponent implements OnInit {
       this.cIds = this.configService.getCategories().result
       this.loadDiscussionData()
     }
-
-    if (!this.topicId && !this.slug) {
-      this.route.params.subscribe(params => {
-        this.routeParams = params;
-        this.slug = _.get(this.routeParams, 'slug');
-        this.topicId = _.get(this.routeParams, 'topicId');
-        this.refreshPostData(this.currentActivePage);
-        // this.getRealtedDiscussion(this.cid)
-      });
-    } else {
-      this.refreshPostData(this.currentActivePage);
-      // this.getRealtedDiscussion(this.cid)
-    }
   }
-
-
-  async refreshPostData(page?: any) {
-    if (this.currentFilter === 'timestamp') {
-
-      this.discussionService.fetchTopicById(this.topicId, this.slug, page).subscribe(
-        (data: NSDiscussData.IDiscussionData) => {
-          this.appendResponse(data)
-        },
-        (err: any) => {
-          console.log('Error in fetching topics')
-          // toast message
-          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
-        });
-    } else {
-      this.discussionService.fetchTopicByIdSort(this.topicId, 'voted', page).subscribe(
-        (data: NSDiscussData.IDiscussionData) => {
-          console.log("res",data, this.topicId)
-          this.appendResponse(data)
-        },
-        (err: any) => {
-          console.log('Error in fetching topics')
-        });
-    }
-  }
-
-  appendResponse(data) {
-    this.data = data;
-    this.paginationData = _.get(data, 'pagination');
-    this.mainUid = _.get(data, 'loggedInUser.uid');
-    this.categoryId = _.get(data, 'cid');
-    this.topicId = _.get(data, 'tid');
-  }
-
   async getForumIds() {
     let body = {
       "identifier":

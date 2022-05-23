@@ -381,7 +381,7 @@ export class DiscussionDetailsComponent implements OnInit, OnDestroy {
       // TODO: error toast
       console.log('e', error);
     });
-    console.log(pid);
+    //console.log(pid);
   }
 
   deletePost(postId: number) {
@@ -428,7 +428,7 @@ export class DiscussionDetailsComponent implements OnInit, OnDestroy {
    * @description - It will trigger the event handlers and close the update thread popup.
    */
   closeModal(event: any) {
-    console.log('close event', event);
+    //console.log('close event', event);
     if (_.get(event, 'action') === 'update') {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }

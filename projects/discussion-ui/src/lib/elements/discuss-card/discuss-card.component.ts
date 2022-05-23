@@ -32,6 +32,8 @@ export class DiscussCardComponent implements OnInit {
   paginationData!: any;
   mainUid: number;
   categoryId: any;
+  showEditTopicModal = false;
+  editableTopicDetails: any;
   // cIds: any
   // showReplyFlag = false
   constructor(
@@ -92,7 +94,11 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  editTopic() {
+  editTopic(data) {
+    // const disply = "EDIT REPLY"
+    // this.discussionUIService.setDisplay(disply)
+    // this.discussionUIService.setReplyData(data)
+    this.showEditTopicModal = true;
     console.log("edit");
   }
 
@@ -129,7 +135,8 @@ export class DiscussCardComponent implements OnInit {
 
   replyHandler(data){
     // this.showReplyFlag = true
-    this.discussionUIService.setDisplay(true)
+    const disply = "REPLY"
+    this.discussionUIService.setDisplay(disply)
     this.discussionUIService.setReplyData(this.discussionData)
     console.log("reply data", data)
     //this.reply.emit(data);
@@ -193,5 +200,25 @@ export class DiscussCardComponent implements OnInit {
     this.mainUid = _.get(data, 'loggedInUser.uid');
     this.categoryId = _.get(data, 'cid');
     this.topicId = _.get(data, 'tid');
+    console.log("postS",this.data)
+  }
+
+  closeModal(event: any) {
+    console.log('close event', event);
+    if (_.get(event, 'action') === 'update') {
+      this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
+    }
+    this.showEditTopicModal = false;
+  }
+
+
+  editTopicHandler(event, tid, updateTopicRequest) {
+    // this.logTelemetry(event, this.editableTopicDetails);
+    this.discussionService.editPost(tid, updateTopicRequest).subscribe(data => {
+      console.log('update success', data);
+      this.refreshPostData(this.currentActivePage);
+    }, error => {
+      console.log('error while updating', error);
+    });
   }
 }

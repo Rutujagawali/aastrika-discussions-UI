@@ -1,6 +1,11 @@
 <div class="reply-component">
   <div class="repy-title">Replying to</div>
 
+  <!-- <div *ngIf="displayState === 'EDIT REPLY' ">
+
+    <div class="repy-title">Edit</div>
+  </div> -->
+
   <div class="user_name_div d-flex">
     <span class="circle-text"
       ><span class="circle-label">{{
@@ -21,17 +26,28 @@
     </div>
   </div>
 
-  <p class="discussion-card-comment" [innerHTML]="replyData?.teaser.content"></p>
+  <p
+    class="discussion-card-comment"
+    [innerHTML]="replyData?.teaser.content"
+  ></p>
 
   <form [formGroup]="replyForm">
     <div class="replay-field">
-        <input class="reply-field" placeholder="Join the Conversation" minlength="5"   aria-label="Type your message here" formControlName="replyContent"   >
-        <button 
-        class="reply-btn" (click)="onReplyClick('reply')" id="update-post" type="button">
-        <img src="./assets/discussion-ui/images/send-icon.png">
-    </button>
-      </div>
+      <input
+        class="reply-field"
+        placeholder="Join the Conversation"
+        minlength="5"
+        aria-label="Type your message here"
+        formControlName="replyContent"
+      />
+      <button
+        class="reply-btn"
+        (click)="onReplyClick('reply')"
+        id="update-post"
+        type="button"
+      >
+        <img src="./assets/discussion-ui/images/send-icon.png" />
+      </button>
+    </div>
   </form>
-  
-
 </div>

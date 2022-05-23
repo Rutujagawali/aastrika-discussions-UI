@@ -7,11 +7,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DiscussionUIService {
 
 
-  showReplay =   new BehaviorSubject(false);
+  showReplay =   new BehaviorSubject("VIEW ALL");
   replayData = new BehaviorSubject(null)
 
   constructor() { }
-
+ 
   setDisplay(data){
     this.showReplay.next(data)
   }

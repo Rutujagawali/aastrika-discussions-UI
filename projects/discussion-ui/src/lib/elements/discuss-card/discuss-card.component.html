@@ -32,7 +32,7 @@
       <div class="kabab-menu" id="group-actions" (click)="onMenuClick()"></div>
       <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
         <div>
-          <div class="list" (click)="editTopic()">Edit</div>
+          <div class="list" (click)="editTopic(discussionData)">Edit</div>
           <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)">
             Delete
           </div>
@@ -129,3 +129,4 @@
     
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
 
+<lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="discussionData" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>

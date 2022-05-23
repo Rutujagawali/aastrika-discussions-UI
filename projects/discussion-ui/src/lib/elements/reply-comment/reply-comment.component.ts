@@ -12,6 +12,7 @@ export class ReplyCommentComponent implements OnInit {
 
   replyData:any
   replyForm!: FormGroup;
+  // displayState
   
   
   constructor(
@@ -21,11 +22,16 @@ export class ReplyCommentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("reply comp")
-    this.discussionUIService.getReplyData().subscribe( data => 
-      {console.log("in reply component", data)
-      this.replyData = data
-    })
+    // this.discussionUIService.getDisplay().subscribe( data =>  {
+    //   console.log(data)
+    //   this.displayState = data
+    // });
+
+    // console.log("reply comp")
+    // this.discussionUIService.getReplyData().subscribe( data => 
+    //   {console.log("in reply component", data)
+    //   this.replyData = data
+    // })
 
     this.initializeFormFields();
   }
@@ -49,7 +55,9 @@ export class ReplyCommentComponent implements OnInit {
         console.log(data)
       }
     )
-    this.discussionUIService.setDisplay(false);
+
+    const disply = 'VIEW ALL'
+    this.discussionUIService.setDisplay(disply);
   }
 
 
