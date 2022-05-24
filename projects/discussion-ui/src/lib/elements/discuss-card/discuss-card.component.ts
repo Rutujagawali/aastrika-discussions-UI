@@ -126,7 +126,8 @@ export class DiscussCardComponent implements OnInit {
   deleteTopicHandler(){
     this.discussionService.deleteTopic(this.topicId).subscribe(data => {
       //this.location.back();
-      console.log(data)
+      // console.log(data)
+      this.refreshPostData(this.currentActivePage);
     }, error => {
       console.log('error while deleting', error);
     });
