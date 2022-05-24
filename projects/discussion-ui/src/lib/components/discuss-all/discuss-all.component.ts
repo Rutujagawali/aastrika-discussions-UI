@@ -50,8 +50,6 @@ export class DiscussAllComponent implements OnInit {
   startDiscussionCategoryId: any;
   isWidget: boolean;
   showModerationModal = false
-  mainUid: number;
-  paginationData!: any;
   displayState = 'VIEW ALL'
 
   constructor(
