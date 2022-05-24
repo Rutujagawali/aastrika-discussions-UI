@@ -25,8 +25,8 @@ export class DiscussAllComponent implements OnInit {
 
   @Input() context: any
   @Input() categoryAction;
-  @Input() topicId: any;
-  @Input() slug: string;
+  // @Input() topicId: any;
+  // @Input() slug: string;
 
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
 
@@ -119,27 +119,27 @@ export class DiscussAllComponent implements OnInit {
     }
   }
 
-  navigateToDiscussionDetails(discussionData) {
+  // navigateToDiscussionDetails(discussionData) {
 
-    const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
-    if (matchedTopic) {
-      this.telemetryUtils.deleteContext(matchedTopic);
-    }
+  //   const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
+  //   if (matchedTopic) {
+  //     this.telemetryUtils.deleteContext(matchedTopic);
+  //   }
 
-    this.telemetryUtils.uppendContext({
-      id: _.get(discussionData, 'tid'),
-      type: 'Topic'
-    });
+  //   this.telemetryUtils.uppendContext({
+  //     id: _.get(discussionData, 'tid'),
+  //     type: 'Topic'
+  //   });
 
-    const slug = _.trim(_.get(discussionData, 'slug'));
-    // tslint:disable-next-line: max-line-length
-    const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
-    // console.log("input", input)
-    this.navigationService.navigate(input);
-    this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discussionData.title, tid: discussionData.tid, cId: this.cIds });
+  //   const slug = _.trim(_.get(discussionData, 'slug'));
+  //   // tslint:disable-next-line: max-line-length
+  //   const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
+  //   // console.log("input", input)
+  //   this.navigationService.navigate(input);
+  //   this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discussionData.title, tid: discussionData.tid, cId: this.cIds });
 
-    // this.router.navigate([`${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`], { queryParamsHandling: "merge" });
-  }
+  //   // this.router.navigate([`${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`], { queryParamsHandling: "merge" });
+  // }
 
   acceptData(singleTagDetails) {
 
