@@ -4,25 +4,32 @@
         data-target="#myModal" id="start-discussion">Start Discussion</button> -->
 
 
-    <div class="flex flex-1 custom discussion_outer_box">
+    <div *ngIf="displayState === 'VIEW ALL'" class="flex flex-1 custom discussion_outer_box">
         <div class="flex flex-3 flex-column discussion_main_box">
-            <div class="flex flex-1 cursor-pointer margin-fix height-48" (click)="startDiscussion();logTelemetry($event)" data-toggle="modal" data-target="#myModal" id="start-discussion">
-                <a href="javascript:void(0)" class="flex flex-1 cursor-pointer margin-fix height-48  w-6/12" i18n-aria-label role="link">
-                    <div class="flex flex-1 items-center border discuss border-solid discuss-border ws-mat-primary-background-op100 ">
-                        <div class="w-full discuss truncate">
-                            <span class="overflow ml-4 start-btn-hint mb-0 mat-body-1">Start a Conversation</span>
+            <div class="flex gap-2 items-center">
+                <span class="circle-text"><span
+                    class="circle-label">{{ context.userName | createInitials }}</span></span>
+                <div class="flex flex-1 cursor-pointer margin-fix height-48" (click)="startDiscussion();logTelemetry($event)" data-toggle="modal" data-target="#myModal" id="start-discussion">
+                    <a href="javascript:void(0)" class="flex flex-1 cursor-pointer margin-fix height-48  w-6/12" i18n-aria-label role="link">
+                        <div class="flex flex-1 items-center border discuss border-solid discuss-border ws-mat-primary-background-op100 ">
+                            <div class="w-full discuss truncate">
+    
+                                <span class="overflow ml-4 start-btn-hint mb-0 mat-body-1">Start a Conversation</span>
+                            </div>
+                            <div>
+                                <img src="./assets/discussion-ui/images/send-icon.png">
+                            </div>
+                            <!-- <div class="discuss-home text-white flex items-center justify-center cursor-pointer mat-subheading-2">
+                                Start discussion
+                            </div> -->
                         </div>
-                        <div>
-                            <img src="./assets/discussion-ui/images/send-icon.png">
-                        </div>
-                        <!-- <div class="discuss-home text-white flex items-center justify-center cursor-pointer mat-subheading-2">
-                            Start discussion
-                        </div> -->
-                    </div>
-                    <!-- <div class="text-box">Ask a question or post an idea</div> 
-              <div class="buton">start discussion</div> -->
-                </a>
+                        <!-- <div class="text-box">Ask a question or post an idea</div> 
+                  <div class="buton">start discussion</div> -->
+                    </a>
+                </div>
             </div>
+            
+
             <ng-container *ngIf="discussionList  && discussionList.length >= 0" >
                 <div class="comment-count font-normal font-sans text-2xl py-6">
                     {{discussionList.length}} Comments
@@ -47,8 +54,10 @@
 
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">
-                <div (click)="navigateToDiscussionDetails(data);logTelemetry($event)" *ngFor="let data of discussionList" id="discuss-card">
-                    <lib-discuss-card [discussionData]="data"></lib-discuss-card>
+                <div *ngFor="let data of discussionList" id="discuss-card">
+                    <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
+                    
+                    <lib-discuss-card *ngIf="data.tid" [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug"></lib-discuss-card>
                 </div>
             </ng-container>
 
@@ -73,5 +82,8 @@
     <lib-discuss-start (close)="closeModal($event)" *ngIf="showStartDiscussionModal" [categoryId]="startDiscussionCategoryId">
     </lib-discuss-start>
 
-    <lib-discuss-moderation (close)="closeModerationModal($event)" *ngIf="showModerationModal"></lib-discuss-moderation>
+    <lib-discuss-moderation  (close)="closeModerationModal($event)" *ngIf="showModerationModal"></lib-discuss-moderation>
+    <div *ngIf=" displayState && displayState === 'REPLY' ">
+        <lib-reply-comment></lib-reply-comment>
+    </div>
 </div>

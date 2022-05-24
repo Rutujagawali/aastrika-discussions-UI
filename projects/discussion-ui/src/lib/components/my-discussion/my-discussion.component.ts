@@ -35,7 +35,7 @@ export class MyDiscussionComponent implements OnInit {
     this.showLoader = true;
     this.discussService.fetchUserProfile(userName).subscribe(response => {
       this.showLoader = false;
-      console.log(response);
+      //console.log(response);
       this.data = response;
       if (_.get(this.data, 'posts')) {
         this.discussionList = _.get(this.data, 'posts').filter(p => (p.isMainPost === true));

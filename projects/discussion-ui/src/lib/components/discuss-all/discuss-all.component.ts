@@ -11,6 +11,7 @@ import { NSDiscussData } from '../../models/discuss.model';
 import { DiscussStartComponent } from '../discuss-start/discuss-start.component';
 import { Subscription } from 'rxjs';
 import { NavigationServiceService } from '../../navigation-service.service';
+import { DiscussionUIService } from '../../services/discussion-ui.service';
 // import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 /* tslint:enable */
@@ -24,6 +25,8 @@ export class DiscussAllComponent implements OnInit {
 
   @Input() context: any
   @Input() categoryAction;
+  // @Input() topicId: any;
+  // @Input() slug: string;
 
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
 
@@ -47,6 +50,7 @@ export class DiscussAllComponent implements OnInit {
   startDiscussionCategoryId: any;
   isWidget: boolean;
   showModerationModal = false
+  displayState = 'VIEW ALL'
 
   constructor(
     public router: Router,
@@ -55,11 +59,16 @@ export class DiscussAllComponent implements OnInit {
     private configService: ConfigService,
     public activatedRoute: ActivatedRoute,
     private telemetryUtils: TelemetryUtilsService,
-    private navigationService: NavigationServiceService
+    private navigationService: NavigationServiceService,
+    private discussionUIService: DiscussionUIService
     // private modalService: BsModalService
   ) { }
 
   ngOnInit() {
+    this.discussionUIService.getDisplay().subscribe( data =>  {
+      this.displayState = data
+    });
+
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
       this.isWidget = true
@@ -69,7 +78,6 @@ export class DiscussAllComponent implements OnInit {
       this.loadDiscussionData()
     }
   }
-
   async getForumIds() {
     let body = {
       "identifier":
@@ -109,29 +117,30 @@ export class DiscussAllComponent implements OnInit {
     }
   }
 
-  navigateToDiscussionDetails(discussionData) {
+  // navigateToDiscussionDetails(discussionData) {
 
-    const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
-    if (matchedTopic) {
-      this.telemetryUtils.deleteContext(matchedTopic);
-    }
+  //   const matchedTopic = _.find(this.telemetryUtils.getContext(), { type: 'Topic' });
+  //   if (matchedTopic) {
+  //     this.telemetryUtils.deleteContext(matchedTopic);
+  //   }
 
-    this.telemetryUtils.uppendContext({
-      id: _.get(discussionData, 'tid'),
-      type: 'Topic'
-    });
+  //   this.telemetryUtils.uppendContext({
+  //     id: _.get(discussionData, 'tid'),
+  //     type: 'Topic'
+  //   });
 
-    const slug = _.trim(_.get(discussionData, 'slug'));
-    // tslint:disable-next-line: max-line-length
-    const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
-    this.navigationService.navigate(input);
-    this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discussionData.title, tid: discussionData.tid, cId: this.cIds });
+  //   const slug = _.trim(_.get(discussionData, 'slug'));
+  //   // tslint:disable-next-line: max-line-length
+  //   const input = { data: { url: `${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`, queryParams: {} }, action: CONSTANTS.CATEGORY_DETAILS, }
+  //   // console.log("input", input)
+  //   this.navigationService.navigate(input);
+  //   this.stateChange.emit({ action: CONSTANTS.CATEGORY_DETAILS, title: discussionData.title, tid: discussionData.tid, cId: this.cIds });
 
-    // this.router.navigate([`${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`], { queryParamsHandling: "merge" });
-  }
+  //   // this.router.navigate([`${this.configService.getRouterSlug()}${CONSTANTS.ROUTES.TOPIC}${slug}`], { queryParamsHandling: "merge" });
+  // }
 
   acceptData(singleTagDetails) {
-    // debugger
+
     if (this.context) {
       singleTagDetails.cIds = this.cIds;
     }
@@ -312,4 +321,6 @@ export class DiscussAllComponent implements OnInit {
   closeModerationModal(event) {
     this.showModerationModal = false
   }
+
+  
 }

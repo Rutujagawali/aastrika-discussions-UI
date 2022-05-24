@@ -10,6 +10,13 @@ import { PipesModule } from './../pipes/pipes.module';
 
 import { PostReplyComponent } from './post-reply/post-reply.component';
 import { SlidersComponent } from './sliders/sliders.component';
+import { DiscussionDeleteComponent } from '../components/discussion-delete/discussion-delete.component';
+// import { DiscussStartComponent } from '../components/discuss-start/discuss-start.component';
+import { ComponentsModule } from '../components/components.module';
+import { DiscussEditComponent } from './discuss-start/discuss-edit.component';
+// import { ComponentsModule } from '../components/components.module';
+// import { ReplyCommentComponent } from './reply-comment/reply-comment.component';
+
 @NgModule({
   declarations: [
     PostReplyComponent,
@@ -18,12 +25,17 @@ import { SlidersComponent } from './sliders/sliders.component';
     AvatarPhotoComponent,
     AppLoaderComponent,
     RelatedDiscussionComponent,
-    SlidersComponent
+    SlidersComponent,
+    DiscussionDeleteComponent,
+    DiscussEditComponent
+    // ReplyCommentComponent
+    // ComponentsModule
   ],
   imports: [
     CommonModule, PipesModule,
      FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // ComponentsModule
   ],
   exports: [
     CategoryCardComponent,
@@ -33,7 +45,9 @@ import { SlidersComponent } from './sliders/sliders.component';
     RelatedDiscussionComponent,
     AppLoaderComponent,
     PostReplyComponent,
-    SlidersComponent
+    SlidersComponent,
+    DiscussionDeleteComponent,
+    DiscussEditComponent
   ]
 })
 export class ElementsModule { }
