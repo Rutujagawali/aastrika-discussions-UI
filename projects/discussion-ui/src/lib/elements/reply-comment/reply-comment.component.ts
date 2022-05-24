@@ -28,10 +28,11 @@ export class ReplyCommentComponent implements OnInit {
     // });
 
     // console.log("reply comp")
-    // this.discussionUIService.getReplyData().subscribe( data => 
-    //   {console.log("in reply component", data)
-    //   this.replyData = data
-    // })
+    this.discussionUIService.getReplyData().subscribe( data => 
+      {
+        // console.log("in reply component", data)
+      this.replyData = data
+    })
 
     this.initializeFormFields();
   }
