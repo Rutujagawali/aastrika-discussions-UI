@@ -191,6 +191,7 @@ export class DiscussAllComponent implements OnInit {
           this.discussionList.push(topic);
         }
       });
+     
       // this.discussionList = _.get(response, 'topics')
     }, error => {
       this.showLoader = false;
@@ -218,6 +219,7 @@ export class DiscussAllComponent implements OnInit {
             this.discussionList.push(topic);
           }
         });
+        
       }, error => {
         this.showLoader = false;
         // TODO: Toaster

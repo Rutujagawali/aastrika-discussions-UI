@@ -55,7 +55,8 @@
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">
                 <div *ngFor="let data of discussionList" id="discuss-card">
-                    <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
+
+                      <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
                     
                     <lib-discuss-card *ngIf="data.tid" [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug"></lib-discuss-card>
                 </div>

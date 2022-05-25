@@ -34,6 +34,8 @@ export class DiscussCardComponent implements OnInit {
   categoryId: any;
   showEditTopicModal = false;
   editableTopicDetails: any;
+  userDetailsDataList : any;
+  posts : any = [];
   // cIds: any
   // showReplyFlag = false
   constructor(
@@ -55,9 +57,9 @@ export class DiscussCardComponent implements OnInit {
 
   ngOnInit() {
     // this.showReplyFlag = false
-    console.log('discussionData', this.discussionData);
+    console.log('discussionData', this.discussionData.user);
       //this.cIds = this.configService.getCategories().result
-     
+         
   }
   public getBgColor(tagTitle: any) {
     const bgColor = this.stringToColor(tagTitle.toLowerCase());
@@ -117,6 +119,10 @@ export class DiscussCardComponent implements OnInit {
     else {
       this.replyFlag = false
     }
+  }
+  getReplyHandler(data){
+    this.discussionUIService.setReplyData(this.discussionData)
+    console.log("test=",this.replyHandler)
   }
 
   closeDeleteModel(event){

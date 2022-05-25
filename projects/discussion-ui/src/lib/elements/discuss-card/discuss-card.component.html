@@ -112,8 +112,9 @@
   
   <span class="votes-content">
     <div class="row discuss-card-label label-wrapper">
-      <div *ngIf="!replyFlag" (click)="showReply()">View Reply</div>
-      <div *ngIf="replyFlag" (click)="showReply()">Hide Reply</div>
+      <div *ngIf="!replyFlag" (click)="showReply()">View  {{ discussionData?.user?.postcount}} Replies</div>
+      <div *ngIf="replyFlag" (click)="showReply()">Hide {{ discussionData?.user?.postcount}} Replies</div>
+      <!-- <div img src="./assets/discussion-ui/images/Polygon-1.png" ></div> -->
     </div>
   </span>
 </div>
