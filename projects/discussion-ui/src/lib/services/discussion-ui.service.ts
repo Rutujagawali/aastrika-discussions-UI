@@ -7,7 +7,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DiscussionUIService {
 
 
-  showReplay =   new BehaviorSubject("VIEW ALL");
+  public showReplay =   new BehaviorSubject(undefined);
+  showReplay$ = this.showReplay.asObservable();
   replayData = new BehaviorSubject(null)
 
   constructor() { }

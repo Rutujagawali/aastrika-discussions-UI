@@ -9,9 +9,10 @@ import * as CONSTANTS from './../../common/constants.json';
 import * as _ from 'lodash'
 import { NSDiscussData } from '../../models/discuss.model';
 import { DiscussStartComponent } from '../discuss-start/discuss-start.component';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { NavigationServiceService } from '../../navigation-service.service';
 import { DiscussionUIService } from '../../services/discussion-ui.service';
+import { takeUntil } from 'rxjs/operators'
 // import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 /* tslint:enable */
@@ -51,7 +52,7 @@ export class DiscussAllComponent implements OnInit {
   isWidget: boolean;
   showModerationModal = false
   displayState = 'VIEW ALL'
-
+  public unsubscribe = new Subject<void>();
   constructor(
     public router: Router,
     private route: ActivatedRoute,
@@ -65,7 +66,7 @@ export class DiscussAllComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.discussionUIService.getDisplay().subscribe( data =>  {
+    this.discussionUIService.showReplay$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       this.displayState = data
     });
 
@@ -321,6 +322,9 @@ export class DiscussAllComponent implements OnInit {
   closeModerationModal(event) {
     this.showModerationModal = false
   }
-
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
   
 }
