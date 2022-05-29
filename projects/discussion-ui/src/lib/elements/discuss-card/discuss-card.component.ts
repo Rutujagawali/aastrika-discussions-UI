@@ -18,6 +18,7 @@ import { NSDiscussData } from './../../models/discuss.model';
 export class DiscussCardComponent implements OnInit {
   replyFlag = false;
   @Input() discussionData: any;
+  @Input() userDetails: any;
   @Input() cid: any;
   @Input() slug?: string;
   @Output() reply = new EventEmitter();
@@ -54,6 +55,7 @@ export class DiscussCardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result

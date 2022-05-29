@@ -31,10 +31,9 @@
     [innerHTML]="replyData?.teaser.content"
   ></p>
 
-  <form [formGroup]="replyForm">
-    <div class="replay-field">
+  <form [formGroup]="replyForm" class="d-flex">
       <input
-        class="reply-field"
+        class="replay-field"
         placeholder="Join the Conversation"
         minlength="5"
         aria-label="Type your message here"
@@ -48,6 +47,5 @@
       >
         <img src="./assets/discussion-ui/images/send-icon.png" />
       </button>
-    </div>
   </form>
 </div>

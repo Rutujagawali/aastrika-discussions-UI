@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiscussionUIService } from '../../services/discussion-ui.service';
 import { DiscussionService } from '../../services/discussion.service';
@@ -22,11 +22,6 @@ export class ReplyCommentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.discussionUIService.getDisplay().subscribe( data =>  {
-    //   console.log(data)
-    //   this.displayState = data
-    // });
-
     // console.log("reply comp")
     this.discussionUIService.getReplyData().subscribe( data => 
       {
@@ -57,7 +52,7 @@ export class ReplyCommentComponent implements OnInit {
       }
     )
 
-    const disply = 'VIEW ALL'
+    const disply = 'VIEW_ALL'
     this.discussionUIService.setDisplay(disply);
   }
 
