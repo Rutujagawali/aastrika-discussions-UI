@@ -231,7 +231,13 @@ export class DiscussAllComponent implements OnInit {
         console.log('error fetching topic list', error);
       });
   }
-
+  
+  voteEvent(event:any){
+   if(event){
+     console.log(event)
+     this.loadDiscussionData()
+   }
+  }
   getContextData(cid: any) {
     this.showLoader = true;
     const req = {

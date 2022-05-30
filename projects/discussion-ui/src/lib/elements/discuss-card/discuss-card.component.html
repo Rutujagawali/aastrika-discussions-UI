@@ -94,10 +94,11 @@
 
         <span class="views-content">
         
-          <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="like"  alt="thumbs-up-image"/>
-          <img *ngIf="!like" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+          <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.downvotes >=0 && discussionData.upvotes ==0 "  alt="thumbs-up-image"/>
+          <img *ngIf="discussionData.upvotes >0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
-      <span>{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
+      <span *ngIf="discussionData.downvotes ==0">{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
+      <span *ngIf="discussionData.downvotes >0"></span>
       </span>
   
       <!-- <span class="views-content ">
@@ -109,13 +110,48 @@
       <!--<div class="cursor-pointer comments-count " *ngIf="!IsSingleComent(discussionData.postcount) ">{{((discussionData.postcount || 1) -1) }} comments</div>-->
     </div>
   </div>
-  
+ 
   <span class="votes-content">
     <div class="row discuss-card-label label-wrapper">
-      <div *ngIf="!replyFlag" (click)="showReply()">View Reply</div>
-      <div *ngIf="replyFlag" (click)="showReply()">Hide Reply</div>
+      <div *ngIf="!replyFlag" (click)="showReply()">
+        <div >View  {{ discussionData?.postcount}} Replies
+      </div>
+    </div>
+      <div *ngIf="replyFlag" (click)="showReply()">Hide {{ discussionData?.postcount}} Replies
+      </div>
+      <span class="img-content">
+        <img *ngIf="!replyFlag" src="./assets/discussion-ui/images/downarrow.png" class="img-style">
+      </span>
+      <span class="img-content">
+        <img *ngIf="replyFlag" src="./assets/discussion-ui/images/uparrow.png" class="img-style">
+      </span>
+     
     </div>
   </span>
+  <div  *ngFor="let post of data?.posts"class="discuss-card-content cursor-pointer " >
+    <div class="discuss-card-header" *ngIf="replyFlag">
+      <div class="discussion-details">
+       <!-- user name -->
+      <div class="user_name_div d-flex">
+        <span class="circle-text">
+          <span class="circle-label">
+              {{post?.user?.username | splitInitials }}
+          </span>
+        </span>
+          <div class="post_user_text_box">
+            <span class="discuss-user-label"
+              *ngIf="discussionData?.user?.username">
+              {{ post?.user?.username }}
+            </span>
+            <span class="timing">
+              {{ post?.timestamp | pipeRelativeTime }}
+            </span>
+            <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- <div class="tags margin-bottom-s">

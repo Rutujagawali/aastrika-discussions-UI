@@ -59,7 +59,7 @@
                     
                     <lib-discuss-card *ngIf="data.tid"
                     [userDetails]="privilegesData"
-                    [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug"></lib-discuss-card>
+                    [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug" (voteChange)="voteEvent($event)"></lib-discuss-card>
                 </div>
             </ng-container>
 
