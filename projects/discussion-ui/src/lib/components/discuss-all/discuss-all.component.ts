@@ -9,9 +9,10 @@ import * as CONSTANTS from './../../common/constants.json';
 import * as _ from 'lodash'
 import { NSDiscussData } from '../../models/discuss.model';
 import { DiscussStartComponent } from '../discuss-start/discuss-start.component';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { NavigationServiceService } from '../../navigation-service.service';
 import { DiscussionUIService } from '../../services/discussion-ui.service';
+import { takeUntil } from 'rxjs/operators'
 // import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 /* tslint:enable */
@@ -31,6 +32,7 @@ export class DiscussAllComponent implements OnInit {
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
 
   discussionList: any[];
+  privilegesData: any;
   routeParams: any;
   showStartDiscussionModal = false;
   categoryId: string;
@@ -50,8 +52,8 @@ export class DiscussAllComponent implements OnInit {
   startDiscussionCategoryId: any;
   isWidget: boolean;
   showModerationModal = false
-  displayState = 'VIEW ALL'
-
+  displayState = 'VIEW_ALL'
+  public unsubscribe = new Subject<void>();
   constructor(
     public router: Router,
     private route: ActivatedRoute,
@@ -65,8 +67,10 @@ export class DiscussAllComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.discussionUIService.getDisplay().subscribe( data =>  {
-      this.displayState = data
+    this.discussionUIService.showReplay$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+      if(data){
+        this.displayState = data
+      }
     });
 
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
@@ -153,6 +157,7 @@ export class DiscussAllComponent implements OnInit {
     this.discussionService.getContextBasedTopic(slug, this.currentActivePage).subscribe(data => {
       this.showLoader = false;
       this.isTopicCreator = _.get(data, 'privileges.topics:create') === true ? true : false;
+      this.privilegesData = _.get(data, 'privileges');
       this.discussionList = _.union(_.get(data, 'topics'), _.get(data, 'children'));
     }, error => {
       this.showLoader = false;
@@ -184,6 +189,7 @@ export class DiscussAllComponent implements OnInit {
   fillPopular(page?: any) {
     this.showLoader = true;
     return this.discussionService.fetchPopularD(page).subscribe((response: any) => {
+      //console.log("fillpopulat",response )
       this.showLoader = false;
       this.discussionList = [];
       _.filter(response.topics, (topic) => {
@@ -211,6 +217,7 @@ export class DiscussAllComponent implements OnInit {
     this.showLoader = true;
     return this.discussionService.fetchRecentD(page).subscribe(
       (data: any) => {
+        //console.log("getRecentData", data)
         this.showLoader = false;
         this.discussionList = [];
         _.filter(data.topics, (topic) => {
@@ -224,7 +231,13 @@ export class DiscussAllComponent implements OnInit {
         console.log('error fetching topic list', error);
       });
   }
-
+  
+  voteEvent(event:any){
+   if(event){
+     console.log(event)
+     this.loadDiscussionData()
+   }
+  }
   getContextData(cid: any) {
     this.showLoader = true;
     const req = {
@@ -234,12 +247,15 @@ export class DiscussAllComponent implements OnInit {
     };
     return this.discussionService.getContextBasedDiscussion(req).subscribe(
       (data: any) => {
+        //console.log("getContextData", data)
         this.showLoader = false;
         let result = data.result
         let res = result.filter((elem) => {
           return (elem.statusCode !== 404)
         })
         this.allTopics = _.map(res, (topic) => topic.topics);
+        this.privilegesData = res[0].privileges
+        //console.log(this.privilegesData)
         this.discussionList = _.flatten(this.allTopics)
       }, error => {
         this.showLoader = false;
@@ -321,6 +337,10 @@ export class DiscussAllComponent implements OnInit {
   closeModerationModal(event) {
     this.showModerationModal = false
   }
-
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+    this.discussionUIService.showReplay.next('VIEW_ALL')
+  }
   
 }

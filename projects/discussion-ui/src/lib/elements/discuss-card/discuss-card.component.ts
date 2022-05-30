@@ -18,14 +18,16 @@ import { NSDiscussData } from './../../models/discuss.model';
 export class DiscussCardComponent implements OnInit {
   replyFlag = false;
   @Input() discussionData: any;
+  @Input() userDetails: any;
   @Input() cid: any;
   @Input() slug?: string;
   @Output() reply = new EventEmitter();
+  @Output() voteChange = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
   showDeleteModel = false
   @Input() topicId:number
-  like = true 
+  like = false 
   currentActivePage = 1;
   currentFilter = 'timestamp'; 
   data: any;
@@ -54,9 +56,11 @@ export class DiscussCardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result
+      this.refreshPostData(this.currentActivePage);
      
   }
   public getBgColor(tagTitle: any) {
@@ -159,11 +163,12 @@ export class DiscussCardComponent implements OnInit {
   }
   private async processVote(discuss: any, req: any) {
     if (discuss && discuss.uid) {
-      this.discussionService.votePost(discuss.tid, req).subscribe(
+      this.discussionService.votePost(discuss.mainPid, req).subscribe(
         () => {
           // toast
           // this.openSnackbar(this.toastSuccess.nativeElement.value);
           this.like = false
+          this.voteChange.emit(discuss)
           this.refreshPostData(this.currentActivePage);
         },
         (err: any) => {

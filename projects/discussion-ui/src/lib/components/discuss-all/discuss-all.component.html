@@ -4,7 +4,7 @@
         data-target="#myModal" id="start-discussion">Start Discussion</button> -->
 
 
-    <div *ngIf="displayState === 'VIEW ALL'" class="flex flex-1 custom discussion_outer_box">
+    <div *ngIf="displayState === 'VIEW_ALL'" class="flex flex-1 custom discussion_outer_box">
         <div class="flex flex-3 flex-column discussion_main_box">
             <div class="flex gap-2 items-center">
                 <span class="circle-text"><span
@@ -57,7 +57,9 @@
                 <div *ngFor="let data of discussionList" id="discuss-card">
                     <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
                     
-                    <lib-discuss-card *ngIf="data.tid" [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug"></lib-discuss-card>
+                    <lib-discuss-card *ngIf="data.tid"
+                    [userDetails]="privilegesData"
+                    [discussionData]="data" [cid]="cIds" [topicId] ="data.tid" [slug]="data.slug" (voteChange)="voteEvent($event)"></lib-discuss-card>
                 </div>
             </ng-container>
 

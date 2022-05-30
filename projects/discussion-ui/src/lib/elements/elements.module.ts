@@ -7,7 +7,6 @@ import { AvatarPhotoComponent } from './avatar-photo/avatar-photo.component';
 import { AppLoaderComponent } from './app-loader/app-loader.component';
 import { RelatedDiscussionComponent } from './related-discussion/related-discussion.component';
 import { PipesModule } from './../pipes/pipes.module';
-
 import { PostReplyComponent } from './post-reply/post-reply.component';
 import { SlidersComponent } from './sliders/sliders.component';
 import { DiscussionDeleteComponent } from '../components/discussion-delete/discussion-delete.component';
@@ -16,7 +15,6 @@ import { ComponentsModule } from '../components/components.module';
 import { DiscussEditComponent } from './discuss-start/discuss-edit.component';
 // import { ComponentsModule } from '../components/components.module';
 // import { ReplyCommentComponent } from './reply-comment/reply-comment.component';
-
 @NgModule({
   declarations: [
     PostReplyComponent,

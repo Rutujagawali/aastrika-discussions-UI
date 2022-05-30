@@ -12,6 +12,15 @@
 
 }
 
+.img-content{
+    padding-top: 5px;
+    padding-left: 2px;
+}
+.img-style{
+    width: 10px !important;
+    height: 5px;
+}
+
 .discuss-card-label {
     color: #0074b6;
     display: flex;
@@ -94,7 +103,7 @@
             display: inline-block;
             justify-content: center;
             align-items: center;
-            background-color: #306933;
+            background-color: #F7C06E;
             color: #fff;
             text-align: center;
             font-weight: 600;
@@ -128,6 +137,7 @@
 
 .discuss-card-content {
     z-index: 1!important;
+    padding: 6px !important;
 }
 
 .dot {

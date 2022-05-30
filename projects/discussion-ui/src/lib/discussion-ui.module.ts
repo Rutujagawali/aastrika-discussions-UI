@@ -11,7 +11,6 @@ import { DiscussionEventsService } from './discussion-events.service';
 import { BaseWrapperComponent } from './wrapper/base-wrapper/base-wrapper.component';
 import { CommonModule } from '@angular/common';
 import { TagsWidgetComponent } from './wrapper/tags-widget/tags-widget.component';
-
 export function provideCsModule(){
   return window['CsModule'];
 }

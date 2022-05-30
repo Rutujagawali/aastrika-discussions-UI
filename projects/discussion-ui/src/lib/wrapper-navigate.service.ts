@@ -10,7 +10,6 @@ import { EventsService } from './events.service';
 export class WrapperNavigateService {
 
   closeSideNav = new EventEmitter()
-
   constructor(private _eventService: EventsService) { }
 
   navigate(input){ 
