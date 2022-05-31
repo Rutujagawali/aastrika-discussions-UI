@@ -111,7 +111,7 @@
     </div>
   </div>
  
-  <span class="votes-content" *ngIf="data?.category?.totalTopicCount>0">
+  <span class="votes-content" *ngIf="data?.category?.totalPostCount>1">
     <div class="row discuss-card-label label-wrapper">
       <div *ngIf="!replyFlag" (click)="showReply()">
         <div >View  {{ data?.category?.totalTopicCount}} Replies
