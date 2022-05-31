@@ -10,6 +10,8 @@ import * as CONSTANTS from './../../common/constants.json';
 import _ from 'lodash';
 import { DiscussionUIService } from '../../services/discussion-ui.service';
 import { NSDiscussData } from './../../models/discuss.model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'lib-discuss-card',
   templateUrl: './discuss-card.component.html',
@@ -38,6 +40,7 @@ export class DiscussCardComponent implements OnInit {
   editableTopicDetails: any;
   // cIds: any
   // showReplyFlag = false
+  public unsubscribe = new Subject<void>();
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -61,7 +64,11 @@ export class DiscussCardComponent implements OnInit {
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result
       this.refreshPostData(this.currentActivePage);
-     
+      this.discussionUIService.showReplay$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+        if(data){
+          this.refreshPostData(this.currentActivePage);
+        }
+      });
   }
   public getBgColor(tagTitle: any) {
     const bgColor = this.stringToColor(tagTitle.toLowerCase());

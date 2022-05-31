@@ -79,7 +79,7 @@ export class TelemetryUtilsService {
       }
     };
 
-    if (this.currentObj) {
+    if (this.currentObj && _.get(this.currentObj, 'id')) {
       const object = {
         id: _.get(this.currentObj, 'id').toString(),
         type: _.get(this.currentObj, 'type'),

@@ -49,11 +49,12 @@ export class ReplyCommentComponent implements OnInit {
     this.discussionService.replyPost(this.replyData.tid, req ).subscribe(
       (data) => {
         console.log(data)
+        const disply = 'VIEW_ALL'
+        this.discussionUIService.setDisplay(disply);
       }
     )
 
-    const disply = 'VIEW_ALL'
-    this.discussionUIService.setDisplay(disply);
+    
   }
 
 
