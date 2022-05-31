@@ -39,10 +39,5 @@
       }
     }
   },
-  "defaultProject": "discussion-ui",
-  "schematics": {
-    "@schematics/angular:component": {
-      "styleext": "scss"
-    }
-  }
+  "defaultProject": "discussion-ui"
 }
