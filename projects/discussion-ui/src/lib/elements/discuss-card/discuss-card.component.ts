@@ -30,6 +30,7 @@ export class DiscussCardComponent implements OnInit {
   showDeleteModel = false
   @Input() topicId:number
   like = false 
+  likeReply = false
   currentActivePage = 1;
   currentFilter = 'timestamp'; 
   data: any;
@@ -170,7 +171,8 @@ export class DiscussCardComponent implements OnInit {
         () => {
           // toast
           // this.openSnackbar(this.toastSuccess.nativeElement.value);
-          this.like = false
+          this.likeReply = false
+          this.refreshPostData(this.currentActivePage)
         },
         (err: any) => {
           // toast
