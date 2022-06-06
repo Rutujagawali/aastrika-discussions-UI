@@ -158,11 +158,38 @@ export class DiscussCardComponent implements OnInit {
     this.processVote(discuss, req);
   }
 
+  downReplyvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: -1,
+    };
+    this.processVote(discuss, req);
+  }
+  replyUpvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: 1,
+    };
+    this.processVote(discuss, req);
+  }
+
   downvote(discuss: NSDiscussData.IDiscussionData) {
     const req = {
       delta: -1,
     };
     this.processVote(discuss, req);
+  }
+  private async processReplyVote(post: any, req: any) {
+    if (post && post.pid) {
+      this.discussionService.votePost(post.pid, req).subscribe(
+        () => {
+          // toast
+          // this.openSnackbar(this.toastSuccess.nativeElement.value);
+          this.like = false
+        },
+        (err: any) => {
+          // toast
+          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+        });
+    }
   }
   private async processVote(discuss: any, req: any) {
     if (discuss && discuss.uid) {
