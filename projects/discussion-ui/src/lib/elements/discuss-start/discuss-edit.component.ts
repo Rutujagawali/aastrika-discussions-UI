@@ -43,8 +43,7 @@ export class DiscussEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("edit data",_.get(this.topicData, 'title'), _.get(this.topicData, 'teaser.content').replace(/<[^>]+>/g, ''))
-
+    console.log("edit data",this.topicData)
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.START);
     this.cIds = this.configService.getCategories();
     // if (!this.categoryId) {
@@ -75,9 +74,8 @@ export class DiscussEditComponent implements OnInit {
       });
 
       /** calling htmlDecode method to get the parsed string */
-      console.log(_.get(topicData, 'teaser.content').replace(/<[^>]+>/g, ''), _.get(topicData, 'title') )
-      this.startForm.controls['question'].setValue(_.get(topicData, 'title'));
-      this.startForm.controls['description'].setValue(_.get(topicData, 'teaser.content').replace(/<[^>]+>/g, ''));
+      this.startForm.controls['question'].setValue(this.discussUtils.htmlDecode(_.get(topicData, 'title')));
+      this.startForm.controls['description'].setValue(_.get(topicData, 'posts[0].content').replace(/<[^>]+>/g, ''));
       this.startForm.controls['tags'].setValue(tags);
       this.validateForm();
     }
@@ -185,7 +183,7 @@ export class DiscussEditComponent implements OnInit {
     };
     this.close.emit({
       action: 'update',
-      tid: _.get(this.topicData, 'tid'),
+      tid: _.get(this.topicData, 'posts[0].pid'),
       request: updateTopicRequest
     });
   }

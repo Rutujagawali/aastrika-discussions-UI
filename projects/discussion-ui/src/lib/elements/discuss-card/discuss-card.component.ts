@@ -132,7 +132,9 @@ export class DiscussCardComponent implements OnInit {
     this.discussionService.deleteTopic(this.topicId).subscribe(data => {
       //this.location.back();
       // console.log(data)
+      this.discussionUIService.deleteComment.next(data);
       this.refreshPostData(this.currentActivePage);
+
     }, error => {
       console.log('error while deleting', error);
     });
@@ -216,6 +218,7 @@ export class DiscussCardComponent implements OnInit {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }
     this.showEditTopicModal = false;
+    this.discussionUIService.eidtComment.next(event)
   }
 
 
@@ -230,14 +233,11 @@ export class DiscussCardComponent implements OnInit {
   }
   /*edit topic data pass to component */ 
   editTopic(data) {
-    // const disply = "EDIT REPLY"
-    // this.discussionUIService.setDisplay(disply)
-    // this.discussionUIService.setReplyData(data)
-    this.showEditTopicModal = true;
     console.log("edit");
     this.discussionService.fetchTopicById(data.tid, data.slug, 1).subscribe(
       (data: NSDiscussData.IDiscussionData) => {
         this.editableTopicDetails = data;
+        this.showEditTopicModal = true;
       },
       (err: any) => {
         console.log('Error in fetching topics')
