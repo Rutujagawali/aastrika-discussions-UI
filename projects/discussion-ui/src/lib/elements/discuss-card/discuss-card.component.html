@@ -47,7 +47,7 @@
   <div class="discuss_main_text_box">
     <a href="javascript:void(0)" i18n-aria-label role="link">
       <h3
-        class="discuss-card-title"
+        class="discuss-card-title pl-32"
         *ngIf="discussionData?.title"
         [innerHTML]="discussionData?.title"
       ></h3>
@@ -114,10 +114,10 @@
   <span class="votes-content" *ngIf="data?.category?.totalPostCount>1">
     <div class="row discuss-card-label label-wrapper">
       <div *ngIf="!replyFlag" (click)="showReply()">
-        <div >View  {{ data?.category?.totalTopicCount}} Replies
+        <div >View  {{ data?.category?.totalPostCount}} Replies
       </div>
     </div>
-      <div *ngIf="replyFlag" (click)="showReply()">Hide {{ data?.category?.totalTopicCount}} Replies
+      <div *ngIf="replyFlag" (click)="showReply()">Hide {{ data?.category?.totalPostCount}} Replies
       </div>
       <span class="img-content">
         <img *ngIf="!replyFlag" src="./assets/discussion-ui/images/downarrow.png" class="img-style">
@@ -165,4 +165,4 @@
     
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
 
-<lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="discussionData" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>
+<lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="editableTopicDetails" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>

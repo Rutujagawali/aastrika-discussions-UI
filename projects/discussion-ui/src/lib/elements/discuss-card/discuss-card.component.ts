@@ -105,13 +105,7 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  editTopic(data) {
-    // const disply = "EDIT REPLY"
-    // this.discussionUIService.setDisplay(disply)
-    // this.discussionUIService.setReplyData(data)
-    this.showEditTopicModal = true;
-    console.log("edit");
-  }
+  
 
   deleteTopic(event, topicData) {
     console.log(event, topicData)
@@ -233,5 +227,23 @@ export class DiscussCardComponent implements OnInit {
     }, error => {
       console.log('error while updating', error);
     });
+  }
+  /*edit topic data pass to component */ 
+  editTopic(data) {
+    // const disply = "EDIT REPLY"
+    // this.discussionUIService.setDisplay(disply)
+    // this.discussionUIService.setReplyData(data)
+    this.showEditTopicModal = true;
+    console.log("edit");
+    this.discussionService.fetchTopicById(data.tid, data.slug, 1).subscribe(
+      (data: NSDiscussData.IDiscussionData) => {
+        this.editableTopicDetails = data;
+      },
+      (err: any) => {
+        console.log('Error in fetching topics')
+        // toast message
+        // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+      });
+
   }
 }
