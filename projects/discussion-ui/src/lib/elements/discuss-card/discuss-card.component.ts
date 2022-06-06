@@ -150,33 +150,20 @@ export class DiscussCardComponent implements OnInit {
     //this.reply.emit(data);
   }
 
-  /* to handle like and dislike */ 
-  upvote(discuss: NSDiscussData.IDiscussionData) {
-    const req = {
-      delta: 1,
-    };
-    this.processVote(discuss, req);
-  }
-
   downReplyvote(discuss: NSDiscussData.IDiscussionData) {
     const req = {
       delta: -1,
     };
-    this.processVote(discuss, req);
+    this.processReplyVote(discuss, req);
   }
   replyUpvote(discuss: NSDiscussData.IDiscussionData) {
     const req = {
       delta: 1,
     };
-    this.processVote(discuss, req);
+    this.processReplyVote(discuss, req);
   }
 
-  downvote(discuss: NSDiscussData.IDiscussionData) {
-    const req = {
-      delta: -1,
-    };
-    this.processVote(discuss, req);
-  }
+ 
   private async processReplyVote(post: any, req: any) {
     if (post && post.pid) {
       this.discussionService.votePost(post.pid, req).subscribe(
@@ -190,6 +177,19 @@ export class DiscussCardComponent implements OnInit {
           // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
         });
     }
+  }
+ /* to handle like and dislike */ 
+  upvote(discuss: NSDiscussData.IDiscussionData) {
+      const req = {
+        delta: 1,
+      };
+      this.processVote(discuss, req);
+  }
+  downvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: -1,
+    };
+    this.processVote(discuss, req);
   }
   private async processVote(discuss: any, req: any) {
     if (discuss && discuss.uid) {
