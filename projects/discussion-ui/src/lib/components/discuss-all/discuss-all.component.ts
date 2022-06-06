@@ -84,7 +84,11 @@ export class DiscussAllComponent implements OnInit {
         this.loadDiscussionData()
       }
     });
-
+    this.discussionUIService.replyComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+      if(data){
+        this.loadDiscussionData()
+      }
+    });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
       this.isWidget = true

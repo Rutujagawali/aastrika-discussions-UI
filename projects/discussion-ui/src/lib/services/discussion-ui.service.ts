@@ -5,6 +5,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DiscussionUIService {
+  public replyComment =   new BehaviorSubject(undefined);
+  replyComment$ = this.replyComment.asObservable()
   public deleteComment =   new BehaviorSubject(undefined);
   deleteComment$ = this.deleteComment.asObservable()
   public eidtComment =   new BehaviorSubject(undefined);

@@ -111,13 +111,13 @@
     </div>
   </div>
  
-  <span class="votes-content" *ngIf="data?.category?.totalPostCount>1">
+  <span class="votes-content" *ngIf="discussionData?.postcount>1">
     <div class="row discuss-card-label label-wrapper">
       <div *ngIf="!replyFlag" (click)="showReply()">
-        <div >View  {{ data?.category?.totalPostCount}} Replies
+        <div >View  {{ discussionData?.postcount-1}} Replies
       </div>
     </div>
-      <div *ngIf="replyFlag" (click)="showReply()">Hide {{ data?.category?.totalPostCount}} Replies
+      <div *ngIf="replyFlag" (click)="showReply()">Hide {{discussionData?.postcount-1}} Replies
       </div>
       <span class="img-content">
         <img *ngIf="!replyFlag" src="./assets/discussion-ui/images/downarrow.png" class="img-style">
