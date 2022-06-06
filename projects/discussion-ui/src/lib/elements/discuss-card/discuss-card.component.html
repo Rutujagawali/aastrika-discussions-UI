@@ -97,7 +97,7 @@
           <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.downvotes >=0 && discussionData.upvotes ==0 "  alt="thumbs-up-image"/>
           <img *ngIf="discussionData.upvotes >0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
-      <span *ngIf="discussionData.downvotes ==0">{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
+      <span class="view-count" *ngIf="discussionData.downvotes ==0">{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
       <span *ngIf="discussionData.downvotes >0"></span>
       </span>
   
@@ -128,7 +128,7 @@
      
     </div>
   </span>
-  <div  *ngFor="let post of data?.posts ; last as isLast "class="discuss-card-content cursor-pointer pl-27" [ngClass]="{'last-votes': last}" >
+  <div  *ngFor="let post of data?.posts"class="discuss-card-content cursor-pointer pl-27" >
     <div class="discuss-card-header" *ngIf="replyFlag && post?.index!=0">
       <div class="discussion-details">
        <!-- user name -->
@@ -147,12 +147,13 @@
               {{ post?.timestamp | pipeRelativeTime }}
             </span>
             <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
-            <span class="views-content">
+            <span class="views-content-reply">
         
               <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.downvotes >=0 && post.upvotes ==0 "  alt="thumbs-up-image"/>
               <img *ngIf="post.upvotes >0" (click)="downReplyvote(post)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+              <span class="view-count" *ngIf="post.votes >0 ">{{(post.votes ) }} </span>
             </span>
-          <span *ngIf="post.votes >0 ">{{(post.votes ) }} </span>
+         
           </div>
         </div>
       </div>

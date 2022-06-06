@@ -54,7 +54,7 @@
 
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">
-                <div *ngFor="let data of discussionList" id="discuss-card">
+                <div *ngFor="let data of discussionList; let last = last " id="discuss-card" [ngClass]="{'last-votes': last}">
                     <!-- (click)="navigateToDiscussionDetails(data);logTelemetry($event)" -->
                     
                     <lib-discuss-card *ngIf="data.tid"

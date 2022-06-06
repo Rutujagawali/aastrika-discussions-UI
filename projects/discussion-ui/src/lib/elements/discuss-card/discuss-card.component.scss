@@ -187,6 +187,10 @@
             }
         }
     }
+
+    .last-votes{    
+        margin-bottom: 70px;
+    }
 }
 
 .kabab-menu {
@@ -289,6 +293,19 @@
 
 }
 
-.last-votes{
-    margin-bottom: 70px;
+.view-count{
+    // display: flex;
+    // align-items: flex-end;
+    margin-left: 2px !important;
+    /* padding-top: 3px; */
+    font-family: 'Roboto' !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #808080;
+
+}
+
+.views-content-reply{
+    display: flex;
+    align-items: center;
 }
