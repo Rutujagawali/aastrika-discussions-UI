@@ -51,11 +51,9 @@ export class ReplyCommentComponent implements OnInit {
         console.log(data)
         const disply = 'VIEW_ALL'
         this.discussionUIService.setDisplay(disply);
+        this.discussionUIService.replyComment.next(data)
       }
     )
-
     
   }
-
-
 }

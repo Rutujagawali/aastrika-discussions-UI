@@ -72,7 +72,23 @@ export class DiscussAllComponent implements OnInit {
         this.displayState = data
       }
     });
-
+    /* load discussion data after edit the comment */ 
+    this.discussionUIService.eidtComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+      if(data){
+        this.loadDiscussionData()
+      }
+    });
+    /* load discussion data after delting the comment */ 
+    this.discussionUIService.deleteComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+      if(data){
+        this.loadDiscussionData()
+      }
+    });
+    this.discussionUIService.replyComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
+      if(data){
+        this.loadDiscussionData()
+      }
+    });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
       this.isWidget = true

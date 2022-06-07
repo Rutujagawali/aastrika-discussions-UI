@@ -30,6 +30,7 @@ export class DiscussCardComponent implements OnInit {
   showDeleteModel = false
   @Input() topicId:number
   like = false 
+  likeReply = false
   currentActivePage = 1;
   currentFilter = 'timestamp'; 
   data: any;
@@ -105,13 +106,7 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  editTopic(data) {
-    // const disply = "EDIT REPLY"
-    // this.discussionUIService.setDisplay(disply)
-    // this.discussionUIService.setReplyData(data)
-    this.showEditTopicModal = true;
-    console.log("edit");
-  }
+  
 
   deleteTopic(event, topicData) {
     console.log(event, topicData)
@@ -138,7 +133,9 @@ export class DiscussCardComponent implements OnInit {
     this.discussionService.deleteTopic(this.topicId).subscribe(data => {
       //this.location.back();
       // console.log(data)
+      this.discussionUIService.deleteComment.next(data);
       this.refreshPostData(this.currentActivePage);
+
     }, error => {
       console.log('error while deleting', error);
     });
@@ -154,14 +151,42 @@ export class DiscussCardComponent implements OnInit {
     //this.reply.emit(data);
   }
 
-  /* to handle like and dislike */ 
-  upvote(discuss: NSDiscussData.IDiscussionData) {
+  downReplyvote(discuss: NSDiscussData.IDiscussionData) {
+    const req = {
+      delta: -1,
+    };
+    this.processReplyVote(discuss, req);
+  }
+  replyUpvote(discuss: NSDiscussData.IDiscussionData) {
     const req = {
       delta: 1,
     };
-    this.processVote(discuss, req);
+    this.processReplyVote(discuss, req);
   }
 
+ 
+  private async processReplyVote(post: any, req: any) {
+    if (post && post.pid) {
+      this.discussionService.votePost(post.pid, req).subscribe(
+        () => {
+          // toast
+          // this.openSnackbar(this.toastSuccess.nativeElement.value);
+          this.likeReply = false
+          this.refreshPostData(this.currentActivePage)
+        },
+        (err: any) => {
+          // toast
+          // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+        });
+    }
+  }
+ /* to handle like and dislike */ 
+  upvote(discuss: NSDiscussData.IDiscussionData) {
+      const req = {
+        delta: 1,
+      };
+      this.processVote(discuss, req);
+  }
   downvote(discuss: NSDiscussData.IDiscussionData) {
     const req = {
       delta: -1,
@@ -222,6 +247,7 @@ export class DiscussCardComponent implements OnInit {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }
     this.showEditTopicModal = false;
+    this.discussionUIService.eidtComment.next(event)
   }
 
 
@@ -233,5 +259,20 @@ export class DiscussCardComponent implements OnInit {
     }, error => {
       console.log('error while updating', error);
     });
+  }
+  /*edit topic data pass to component */ 
+  editTopic(data) {
+    console.log("edit");
+    this.discussionService.fetchTopicById(data.tid, data.slug, 1).subscribe(
+      (data: NSDiscussData.IDiscussionData) => {
+        this.editableTopicDetails = data;
+        this.showEditTopicModal = true;
+      },
+      (err: any) => {
+        console.log('Error in fetching topics')
+        // toast message
+        // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
+      });
+
   }
 }

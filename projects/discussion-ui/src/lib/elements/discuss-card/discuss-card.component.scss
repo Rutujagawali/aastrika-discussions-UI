@@ -187,6 +187,10 @@
             }
         }
     }
+
+    .last-votes{    
+        margin-bottom: 70px;
+    }
 }
 
 .kabab-menu {
@@ -220,7 +224,7 @@
     box-shadow: 0px 0px 4px 0px #00000026;
 
     /* padding: 8px; */
-    z-index: 1;
+    z-index: 9;
     text-align: center;
     right: 22px;
     top: 50px;
@@ -270,5 +274,40 @@
     font-weight: 400;
     line-height: 24px;
     letter-spacing: -0.02em;
-    padding-left: 33px;
+    // padding-left: 33px;
+    color: #000000;
+}
+
+.pl-32{
+    padding-left: 32px;
+}
+
+.pl-27 {
+    padding-left: 27px !important;
+}
+.counter-wrapper{
+    font-size: 12px;
+    width: 7px;
+    height: 12px;
+    padding-left: 1px;
+
+}
+
+.view-count{
+    // display: flex;
+    // align-items: flex-end;
+    margin-left: 2px !important;
+    /* padding-top: 3px; */
+    font-family: 'Roboto' !important;
+    font-size: 12px;
+    font-weight: 400;
+    color: #808080;
+    margin-top: 5px;
+
+
+}
+
+.views-content-reply{
+    display: flex;
+    align-items: center;
 }
