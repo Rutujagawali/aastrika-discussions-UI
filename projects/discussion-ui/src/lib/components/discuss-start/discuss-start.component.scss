@@ -45,7 +45,7 @@
 			.start-form-field {
 				position: relative;
 				margin-bottom: 0.5rem;
-
+				
 				.start-form-field-control {
 					background-color: var(--white);
 					border: 0.0625rem solid var(--gray-200);
@@ -214,6 +214,7 @@
 
 .discussion-start-modal .discussion-start-modal-content .discussion-start-form .start-form-field {
 	margin-bottom: 1.5rem;
+	@maxin
 }
 
 .discussion_inner_left {
@@ -344,3 +345,7 @@ select.post_form_select:focus {
 	}
 }
 
+.font-weight-500{
+	font-weight: 500!important;
+	text-shadow: none;
+}

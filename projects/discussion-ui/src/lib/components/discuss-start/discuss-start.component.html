@@ -67,19 +67,19 @@
 
           <div class="start-modal-buttons">
             <button (click)="closeModal('discard');logTelemetry($event)" type="button" class="df-btn df-discard-btn"
-              id="discard-discussion-start-form">Discard
+              id="discard-discussion-start-form font-weight-500">Discard
             </button>
             <span *ngIf="uploadSaveData" class="px-4">
             </span>
             <button *ngIf="mode !== 'edit'" type="submit" class="df-btn df-submit-btn"
               [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton"
               (click)="submitPost(startForm);logTelemetry($event)" id="submit-discussion-start-form">
-              <span class="text-white">Submit Post</span>
+              <span class="text-white font-weight-500">Submit Post</span>
             </button>
             <button *ngIf="mode === 'edit'" type="submit" class="df-btn df-update-btn"
               [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton"
               (click)="updatePost(startForm);logTelemetry($event)" id="update-topic-popup">
-              <span class="text-white">Update</span>
+              <span class="text-white font-weight-500">Update</span>
             </button>
           </div>
           ​
