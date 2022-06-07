@@ -64,7 +64,7 @@ export class DiscussCardComponent implements OnInit {
     // this.showReplyFlag = false
     console.log('discussionData', this.discussionData);
       //this.cIds = this.configService.getCategories().result
-      this.refreshPostData(this.currentActivePage);
+      //this.refreshPostData(this.currentActivePage);
       this.discussionUIService.showReplay$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
         if(data){
           this.refreshPostData(this.currentActivePage);
@@ -114,9 +114,11 @@ export class DiscussCardComponent implements OnInit {
     this.showDeleteModel = true
   }
 
-  showReply() {
+  showReply(discussionData?:any) {
     console.log("reply=", this.replyFlag)
     if (this.replyFlag == false) {
+      this.topicId = discussionData.tid
+      this.refreshPostData(this.currentActivePage) 
       this.replyFlag = true
 
     }
