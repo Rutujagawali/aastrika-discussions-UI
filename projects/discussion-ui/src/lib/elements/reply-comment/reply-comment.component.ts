@@ -56,4 +56,9 @@ export class ReplyCommentComponent implements OnInit {
     )
     
   }
+
+  goBack() {
+    const disply = 'VIEW_ALL'
+    this.discussionUIService.setDisplay(disply);
+  }
 }
