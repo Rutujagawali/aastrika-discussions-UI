@@ -94,10 +94,10 @@
 
         <span class="views-content">
         
-          <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.downvotes >=0 && discussionData.upvotes ==0 "  alt="thumbs-up-image"/>
-          <img *ngIf="discussionData.upvotes >0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+          <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.votes <=0 "  alt="thumbs-up-image"/>
+          <img *ngIf="discussionData.votes>0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
-      <span class="view-count" *ngIf="discussionData.downvotes ==0">{{(discussionData.upvotes + discussionData.downvotes) || 0 }} </span>
+      <span class="view-count" *ngIf="discussionData.votes>0">{{(discussionData.votes) }} </span>
       <span *ngIf="discussionData.downvotes >0"></span>
       </span>
   
@@ -113,7 +113,7 @@
  
   <span class="votes-content" *ngIf="discussionData?.postcount>1">
     <div class="row discuss-card-label label-wrapper">
-      <div *ngIf="!replyFlag" (click)="showReply()">
+      <div *ngIf="!replyFlag" (click)="showReply(discussionData)">
         <div >View  {{ discussionData?.postcount-1}} Replies
       </div>
     </div>
@@ -149,8 +149,8 @@
             <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
             <span class="views-content-reply">
         
-              <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.downvotes >=0 && post.upvotes ==0 "  alt="thumbs-up-image"/>
-              <img *ngIf="post.upvotes >0" (click)="downReplyvote(post)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+              <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.votes<=0"  alt="thumbs-up-image"/>
+              <img *ngIf="post.votes>0" (click)="downReplyvote(post)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
               <span class="view-count" *ngIf="post.votes >0 ">{{(post.votes ) }} </span>
             </span>
          

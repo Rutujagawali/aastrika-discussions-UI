@@ -124,6 +124,30 @@
   }
 }
 
+.df-btn-container {
+  // display: flex;
+ .df-back-btn {
+      outline: none;
+      font-weight: bold;
+      background: var(--white);
+      color: var(--blue);
+      border: none !important;
+      padding: 0;
+      margin: 0;
+      font-size: .75rem;
+      display: flex;
+      align-items: center;
+      height: 2rem;
+      cursor: pointer;
+
+      img {
+          width: 16px;
+          height: 16px;
+          margin: 0 0.25rem 0 0;
+      }
+  }
+}
+
 .replyForm {
   .circle-text {
     border-radius: 12px;
