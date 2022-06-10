@@ -99,7 +99,7 @@ export class DiscussAllComponent implements OnInit {
       this.cIds = this.configService.getCategories().result
       this.loadDiscussionData()
     }
-    
+
   }
   async getForumIds() {
     let body = {
@@ -258,7 +258,6 @@ export class DiscussAllComponent implements OnInit {
    }
   }
   getContextData(cid: any) {
-    console.log("loader")
     this.showLoader = true;
     const req = {
       // request: {
