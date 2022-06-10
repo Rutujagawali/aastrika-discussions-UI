@@ -27,8 +27,10 @@ export class DiscussCardComponent implements OnInit {
   @Output() voteChange = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
+  replydropdownContent = true
   showDeleteModel = false
   @Input() topicId:number
+  contentPost: any 
   like = false 
   likeReply = false
   currentActivePage = 1;
@@ -38,6 +40,7 @@ export class DiscussCardComponent implements OnInit {
   mainUid: number;
   categoryId: any;
   showEditTopicModal = false;
+  showEditPost = false
   editableTopicDetails: any;
   // cIds: any
   // showReplyFlag = false
@@ -54,6 +57,9 @@ export class DiscussCardComponent implements OnInit {
       // tslint:disable-next-line:no-string-literal
       if (e.target['id'] !== 'group-actions') {
         this.dropdownContent = true;
+      }
+      if (e.target['id'] !== 'reply-actions') {
+        this.replydropdownContent = true;
       }
     });
     
@@ -106,7 +112,9 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  
+  onReplyMenuClick(){
+    this.replydropdownContent =!this.replydropdownContent
+  }
 
   deleteTopic(event, topicData) {
     console.log(event, topicData)
@@ -279,5 +287,10 @@ export class DiscussCardComponent implements OnInit {
         // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
       });
 
+  }
+   /*edit reply  data pass to component */
+  editReplyPost(post:any){
+    this.contentPost = post
+    this.showEditPost = true
   }
 }

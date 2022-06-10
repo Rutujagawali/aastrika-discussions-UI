@@ -147,6 +147,14 @@
               {{ post?.timestamp | pipeRelativeTime }}
             </span>
             <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
+            <div *ngIf="data?.uid == data?.loggedInUser?.uid"> 
+              <div class="kabab-menu" id="reply-actions" (click)="onReplyMenuClick()"></div>
+              <div class="kabab-menu-dropdown-content" [hidden]="replydropdownContent">
+                <div>
+                  <div class="list" (click)="editReplyPost(data?.post)">Edit</div>
+                 
+                </div>
+              </div>
             <span class="views-content-reply">
         
               <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.votes<=0"  alt="thumbs-up-image"/>
@@ -171,5 +179,5 @@
     </div> -->
     
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
-
+<lib-post-reply  [mode]="'edit'" *ngIf="showEditPost" [showCancel]="true" [content]="contentPost"></lib-post-reply>
 <lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="editableTopicDetails" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>
