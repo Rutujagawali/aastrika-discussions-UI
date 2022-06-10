@@ -119,10 +119,10 @@
     </div>
       <div *ngIf="replyFlag" (click)="showReply()">Hide {{discussionData?.postcount-1}} Replies
       </div>
-      <span class="img-content">
+      <span class="img-content cursor-text">
         <img *ngIf="!replyFlag" src="./assets/discussion-ui/images/downarrow.png" class="img-style">
       </span>
-      <span class="img-content">
+      <span class="img-content cursor-text">
         <img *ngIf="replyFlag" src="./assets/discussion-ui/images/uparrow.png" class="img-style">
       </span>
      
