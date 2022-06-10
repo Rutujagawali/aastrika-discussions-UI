@@ -91,12 +91,15 @@ export class DiscussAllComponent implements OnInit {
     });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
+      this.showLoader = true;
       this.isWidget = true
       this.getForumIds()
     } else {
+      this.showLoader = true;
       this.cIds = this.configService.getCategories().result
       this.loadDiscussionData()
     }
+
   }
   async getForumIds() {
     let body = {

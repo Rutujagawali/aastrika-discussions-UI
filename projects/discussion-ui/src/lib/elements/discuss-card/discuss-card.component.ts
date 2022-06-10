@@ -248,6 +248,9 @@ export class DiscussCardComponent implements OnInit {
     if (_.get(event, 'action') === 'update') {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }
+    if(_.get(event, 'message') === 'discard'){
+      this.showEditTopicModal = false;
+    }
   }
 
 

@@ -5,3 +5,17 @@
     border-radius: 1.5rem;
     border:0px;
 }
+
+
+.loader-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 38px;
+}
+
+.message{
+    margin: 0;
+    font-size: 25px;
+    color: #919191;
+}
