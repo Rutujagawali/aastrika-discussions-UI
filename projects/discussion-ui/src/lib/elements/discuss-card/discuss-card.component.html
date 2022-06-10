@@ -151,7 +151,7 @@
               <div class="kabab-menu" id="reply-actions" (click)="onReplyMenuClick()"></div>
               <div class="kabab-menu-dropdown-content" [hidden]="replydropdownContent">
                 <div>
-                  <div class="list" (click)="editReplyPost(data?.post)">Edit</div>
+                  <div class="list" (click)="editReplyPost(post,data)">Edit</div>
                  
                 </div>
               </div>
@@ -179,5 +179,5 @@
     </div> -->
     
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
-<lib-post-reply  [mode]="'edit'" *ngIf="showEditPost" [showCancel]="true" [content]="contentPost"></lib-post-reply>
+<lib-post-reply  (actionEvent)="editReplyHandler($event)" [mode]="'edit'" *ngIf="showEditPost" [showCancel]="true" [content]="contentPost.content"></lib-post-reply>
 <lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="editableTopicDetails" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>

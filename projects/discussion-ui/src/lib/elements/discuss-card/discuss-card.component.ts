@@ -45,6 +45,7 @@ export class DiscussCardComponent implements OnInit {
   // cIds: any
   // showReplyFlag = false
   public unsubscribe = new Subject<void>();
+  contenPostData: any;
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -289,8 +290,36 @@ export class DiscussCardComponent implements OnInit {
 
   }
    /*edit reply  data pass to component */
-  editReplyPost(post:any){
-    this.contentPost = post
+  editReplyPost(post:any,masterData:any){
+    this.contentPost = { 'content' :'',posts:''}
+    this.contentPost.content = _.get(post, 'content').replace(/<[^>]*>/g, '');
+    this.contentPost.post = post
+    this.contenPostData = masterData
     this.showEditPost = true
+  }
+  editReplyHandler(event) {
+    if (_.get(event, 'action') === 'cancel') {
+      this.showEditPost = false
+    } else if (_.get(event, 'action') === 'edit') {
+      this.updatePost(_.get(event, 'content'), _.get(this.contentPost.post, 'pid'));
+    }
+  }
+  updatePost(updatedPostContent: any, pid: number) {
+    
+    const req = {
+      content: updatedPostContent,
+      title: '',
+      tags: [],
+      uid: _.get(this.contenPostData, 'loggedInUser.uid')
+    };
+    this.discussionService.editPost(pid, req).subscribe((data: any) => {
+      // TODO: Success toast
+      this.showEditPost = false
+      this.refreshPostData(this.currentActivePage);
+    }, (error) => {
+      // TODO: error toast
+      console.log('e', error);
+    });
+    //console.log(pid);
   }
 }
