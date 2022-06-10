@@ -203,7 +203,7 @@ export class DiscussCardComponent implements OnInit {
           // this.openSnackbar(this.toastSuccess.nativeElement.value);
           this.like = false
           this.voteChange.emit(discuss)
-          this.refreshPostData(this.currentActivePage);
+          // this.refreshPostData(this.currentActivePage);
         },
         (err: any) => {
           // toast
@@ -248,8 +248,6 @@ export class DiscussCardComponent implements OnInit {
     if (_.get(event, 'action') === 'update') {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }
-    this.showEditTopicModal = false;
-    this.discussionUIService.eidtComment.next(event)
   }
 
 
@@ -257,7 +255,9 @@ export class DiscussCardComponent implements OnInit {
     // this.logTelemetry(event, this.editableTopicDetails);
     this.discussionService.editPost(tid, updateTopicRequest).subscribe(data => {
       console.log('update success', data);
-      this.refreshPostData(this.currentActivePage);
+      this.showEditTopicModal = false;
+      this.discussionUIService.eidtComment.next(event)
+      // this.refreshPostData(this.currentActivePage);
     }, error => {
       console.log('error while updating', error);
     });

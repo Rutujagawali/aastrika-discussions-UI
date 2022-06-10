@@ -32,6 +32,7 @@
               </div>
               <!-- <small class="text-error" *ngIf="showError('question')"  i18n="question Error|Explains question is required">
               Question is mandatory</small> -->
+              
             </div>
           </div>
 
@@ -70,8 +71,7 @@
               id="discard-discussion-start-form "> 
               <span class="font-weight-500">Discard</span> 
             </button>
-            <span *ngIf="uploadSaveData" class="px-4">
-            </span>
+
             <button *ngIf="mode !== 'edit'" type="submit" class="df-btn df-submit-btn"
               [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton"
               (click)="submitPost(startForm);logTelemetry($event)" id="submit-discussion-start-form">

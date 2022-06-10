@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DiscussionService } from './../../services/discussion.service';
 import { Component, OnInit, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { NSDiscussData } from './../../models/discuss.model';
@@ -58,8 +58,8 @@ export class DiscussStartComponent implements OnInit {
 
   initializeFormFields(topicData) {
     this.startForm = this.formBuilder.group({
-      question: ['', Validators.required],
-      description: ['', [Validators.required, Validators.minLength(8)]],
+      question: ['', [Validators.required , this.noWhitespaceValidator]],
+      description: ['', [Validators.required, Validators.minLength(8) , this.noWhitespaceValidator]],
       tags: [],
       category: []
     });
@@ -80,7 +80,11 @@ export class DiscussStartComponent implements OnInit {
       this.validateForm();
     }
   }
-
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? this.enableSubmitButton = true :  this.enableSubmitButton = false;
+  }
   validateForm() {
     if (this.startForm.status === 'VALID') {
       this.enableSubmitButton = true;
