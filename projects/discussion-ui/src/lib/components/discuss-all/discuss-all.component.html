@@ -31,7 +31,7 @@
             
 
             <ng-container *ngIf="discussionList  && discussionList.length >= 0" >
-                <div class="comment-count font-normal font-sans text-2xl py-6 pl-2">
+                <div [ngClass]="{ 'mobile-bottom' : discussionList.length === 0}" class="comment-count font-normal font-sans text-2xl py-6 pl-2">
                     {{discussionList.length}} Comments
                 </div>
             </ng-container>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </ng-container> -->
-            <lib-app-loader *ngIf="showLoader"></lib-app-loader>
+            <lib-app-loader *ngIf="showLoader === true"></lib-app-loader>
 
 
             <ng-container *ngIf="discussionList  && discussionList.length > 0">

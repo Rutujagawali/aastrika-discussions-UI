@@ -15,7 +15,6 @@
 .img-content{
     padding-top: 5px;
     padding-left: 2px;
-    cursor: default;
 }
 .img-style{
     width: 10px !important;
@@ -140,7 +139,7 @@
 
 .discuss-card-content {
     z-index: 1!important;
-    padding: 3px !important;
+    padding: 1px !important;
 }
 
 .dot {
@@ -313,4 +312,11 @@
 .views-content-reply{
     display: flex;
     align-items: center;
+}
+
+.d-block{
+    display: block;
+}
+.d-hidden{
+    display: none;
 }

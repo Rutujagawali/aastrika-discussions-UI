@@ -115,6 +115,9 @@ export class DiscussCardComponent implements OnInit {
 
   onReplyMenuClick(){
     this.replydropdownContent =!this.replydropdownContent
+    if(this.showEditPost){
+      this.replydropdownContent = true
+    }
   }
 
   deleteTopic(event, topicData) {
