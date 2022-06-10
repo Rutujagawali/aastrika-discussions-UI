@@ -55,7 +55,7 @@ export class DiscussStartComponent implements OnInit {
     this.initializeData();
     this.initializeFormFields(this.topicData);
   }
-
+  
   initializeFormFields(topicData) {
     this.startForm = this.formBuilder.group({
       question: ['', [Validators.required , this.noWhitespaceValidator]],
@@ -83,7 +83,7 @@ export class DiscussStartComponent implements OnInit {
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    return isValid ? this.enableSubmitButton = true :  this.enableSubmitButton = false;
+    return isValid ? null : { 'whitespace': true };
   }
   validateForm() {
     if (this.startForm.status === 'VALID') {

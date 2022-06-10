@@ -73,12 +73,12 @@
             </button>
 
             <button *ngIf="mode !== 'edit'" type="submit" class="df-btn df-submit-btn"
-              [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton"
+              [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton && !startForm.hasError('whitespace')"
               (click)="submitPost(startForm);logTelemetry($event)" id="submit-discussion-start-form">
               <span class="text-white font-weight-500">Submit Post</span>
             </button>
             <button *ngIf="mode === 'edit'" type="submit" class="df-btn df-update-btn"
-              [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton"
+              [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton && !startForm.hasError('whitespace')"
               (click)="updatePost(startForm);logTelemetry($event)" id="update-topic-popup">
               <span class="text-white font-weight-500">Update</span>
             </button>
