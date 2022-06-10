@@ -95,7 +95,7 @@
         <span class="views-content">
         
           <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.votes <=0 "  alt="thumbs-up-image"/>
-          <img *ngIf="discussionData.votes>0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+          <img *ngIf="discussionData.votes>0 && discussionData.upvotes>=0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
       <span class="view-count" *ngIf="discussionData.votes>0">{{(discussionData.votes) }} </span>
       <span *ngIf="discussionData.downvotes >0"></span>
