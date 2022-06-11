@@ -1,4 +1,4 @@
-<div class="discuss-card-content cursor-pointer bottom-border">
+<div class="discuss-card-content cursor-default bottom-border">
   <div class="discuss-card-header">
     <!-- user name -->
     <div class="user_name_div d-flex">
@@ -45,7 +45,7 @@
   </div>
   <!-- title -->
   <div class="discuss_main_text_box">
-    <a href="javascript:void(0)" i18n-aria-label role="link">
+    <a class="cursor-default" href="javascript:void(0)" i18n-aria-label role="link">
       <h3
         class="discuss-card-title pl-32"
         *ngIf="discussionData?.title"
@@ -95,7 +95,7 @@
         <span class="views-content">
         
           <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="discussionData.votes <=0 "  alt="thumbs-up-image"/>
-          <img *ngIf="discussionData.votes>0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+          <img *ngIf="discussionData.votes>0 && discussionData.upvotes>=0" (click)="downvote(discussionData)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
         </span>
       <span class="view-count" *ngIf="discussionData.votes>0">{{(discussionData.votes) }} </span>
       <span *ngIf="discussionData.downvotes >0"></span>
@@ -119,45 +119,55 @@
     </div>
       <div *ngIf="replyFlag" (click)="showReply()">Hide {{discussionData?.postcount-1}} Replies
       </div>
-      <span class="img-content">
+      <span class="img-content cursor-text">
         <img *ngIf="!replyFlag" src="./assets/discussion-ui/images/downarrow.png" class="img-style">
       </span>
-      <span class="img-content">
+      <span class="img-content cursor-text">
         <img *ngIf="replyFlag" src="./assets/discussion-ui/images/uparrow.png" class="img-style">
       </span>
      
     </div>
   </span>
-  <div  *ngFor="let post of data?.posts"class="discuss-card-content cursor-pointer pl-27" >
-    <div class="discuss-card-header" *ngIf="replyFlag && post?.index!=0">
-      <div class="discussion-details">
-       <!-- user name -->
-      <div class="user_name_div d-flex">
-        <span class="circle-text">
-          <span class="circle-label">
-              {{post?.user?.username | splitInitials }}
+<div [ngClass]="replyFlag ? 'd-block' : 'd-hidden'">
+    <div  *ngFor="let post of data?.posts"class="discuss-card-content cursor-pointer pl-27" >
+      <div class="discuss-card-header" *ngIf="replyFlag && post?.index!=0">
+        <div class="discussion-details">
+        <!-- user name -->
+        <div class="user_name_div d-flex">
+          <span class="circle-text">
+            <span class="circle-label">
+                {{post?.user?.username | splitInitials }}
+            </span>
           </span>
-        </span>
-          <div class="post_user_text_box">
-            <span class="discuss-user-label"
-              *ngIf="discussionData?.user?.username">
-              {{ post?.user?.username }}
-            </span>
-            <span class="timing">
-              {{ post?.timestamp | pipeRelativeTime }}
-            </span>
-            <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
-            <span class="views-content-reply">
-        
-              <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.votes<=0"  alt="thumbs-up-image"/>
-              <img *ngIf="post.votes>0" (click)="downReplyvote(post)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
-              <span class="view-count" *ngIf="post.votes >0 ">{{(post.votes ) }} </span>
-            </span>
-         
+            <div class="post_user_text_box">
+              <span class="discuss-user-label"
+                *ngIf="discussionData?.user?.username">
+                {{ post?.user?.username }}
+              </span>
+              <span class="timing">
+                {{ post?.timestamp | pipeRelativeTime }}
+              </span>
+              <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
+              <div *ngIf="data?.uid == data?.loggedInUser?.uid"> 
+                <div class="kabab-menu" *ngIf="!showEditPost" id="reply-actions" (click)="onReplyMenuClick()"></div>
+                <div class="kabab-menu-dropdown-content" [hidden]="replydropdownContent">
+                  <div>
+                    <div class="list" (click)="editReplyPost(post,data)">Edit</div>
+                  
+                  </div>
+                </div>
+              <span class="views-content-reply">
+          
+                <img (click)="replyUpvote(post)" src="./assets/discussion-ui/images/thumbs-up.png"  *ngIf="post.votes<=0"  alt="thumbs-up-image"/>
+                <img *ngIf="post.votes>0" (click)="downReplyvote(post)" src="./assets/discussion-ui/images/red-thumbs-up.png"alt="red-thumbs-up"/>
+                <span class="view-count" *ngIf="post.votes >0 ">{{(post.votes ) }} </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    
   </div>
 </div>
 
@@ -171,5 +181,5 @@
     </div> -->
     
 <lib-discussion-delete (delete)="deleteTopicHandler()" (close)="closeDeleteModel($event)" *ngIf="showDeleteModel"></lib-discussion-delete>
-
+<lib-post-reply  (actionEvent)="editReplyHandler($event)" [mode]="'edit'" *ngIf="showEditPost" [showCancel]="true" [content]="contentPost.content"></lib-post-reply>
 <lib-discuss-edit [mode]="'edit'" [categoryId]='cid' [topicData]="editableTopicDetails" (close)="closeModal($event)" *ngIf="showEditTopicModal"></lib-discuss-edit>

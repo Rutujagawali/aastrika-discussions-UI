@@ -1,16 +1,16 @@
-<form [formGroup]="replyForm">
-  <div appearance="outline" class="text-form-field">
-    <!-- <label class="text-form-label">Your answer here</label> -->
-    <textarea placeholder="Add your comment" minlength="10"
-      aria-label="Type your message here" formControlName="replyContent" class="text-content" [ngModel]="content">
-    </textarea>
-  </div>
+<form [formGroup]="replyForm" class="d-flex pr-3 pl-4 pb-2 pt-1">
+  <input
+    class="post-field"
+    placeholder="Join the Conversation"
+    minlength="5"
+    aria-label="Type your message here"
+    formControlName="replyContent"
+    [ngModel]="content"
+  />
 </form>
-<div class="updatePostActions">
+<div class="updatePostActions mr-3">
   <button class="df-btn df-cancel-btn" *ngIf="showCancel" (click)="onCancelClick()" id="cancel-update-post"
     type="button">Cancel</button>
   <button [ngClass]="{'df-btn-disabled': !isButtonEnabled }" *ngIf="mode === 'edit'" [disabled]="!isButtonEnabled"
-    class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button">Update</button>
-  <button [ngClass]="{'df-btn-disabled': !isButtonEnabled }" *ngIf="mode !== 'edit'" [disabled]="!isButtonEnabled"
-    class="df-btn df-reply-btn" (click)="onReplyClick('reply')" id="update-post" type="button">Post Reply</button>
+    class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button">Done</button>
 </div>

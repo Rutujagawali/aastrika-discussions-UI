@@ -1,7 +1,7 @@
 .discuss-card-title {
     margin: 0 0 12px 0;
     color: #000;
-    cursor: pointer;
+    // cursor: pointer;
     font-size: 16px;
     font-weight: 700;
 }
@@ -27,6 +27,7 @@
     font-size: 14px;
     font-weight: 400;
     margin-right: 14px;
+    cursor: pointer !important;
     img {
         width: 20px;
         margin-right: 0.5rem;
@@ -62,6 +63,7 @@
             margin-left: 1.5rem;
             display: flex;
             align-items: center;
+            cursor: pointer;
             html[dir="rtl"] & {
                 margin-right: 1.5rem;
             }
@@ -137,7 +139,7 @@
 
 .discuss-card-content {
     z-index: 1!important;
-    padding: 6px !important;
+    padding: 1px !important;
 }
 
 .dot {
@@ -310,4 +312,11 @@
 .views-content-reply{
     display: flex;
     align-items: center;
+}
+
+.d-block{
+    display: block;
+}
+.d-hidden{
+    display: none;
 }

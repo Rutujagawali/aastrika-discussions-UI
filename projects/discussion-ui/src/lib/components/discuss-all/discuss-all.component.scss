@@ -206,6 +206,10 @@ a.all_category_link {
     .last-votes{    
         margin-bottom: 70px;
     }
+
+    .mobile-bottom{
+        margin-bottom: 60px;
+    }
 }
 
 .circle-text {
@@ -226,4 +230,8 @@ a.all_category_link {
     .circle-label {
         font: 400 10px/12px Lato;
     }
+}
+
+.cursor-text{
+    cursor: text !important;
 }

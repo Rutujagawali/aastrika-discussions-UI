@@ -75,28 +75,34 @@ export class DiscussAllComponent implements OnInit {
     /* load discussion data after edit the comment */ 
     this.discussionUIService.eidtComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
+        //this.showLoader = false;
         this.loadDiscussionData()
       }
     });
     /* load discussion data after delting the comment */ 
     this.discussionUIService.deleteComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
+        //this.showLoader = false;
         this.loadDiscussionData()
       }
     });
     this.discussionUIService.replyComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
+        //this.showLoader = false;
         this.loadDiscussionData()
       }
     });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
     if (this.context) {
+      this.showLoader = true;
       this.isWidget = true
       this.getForumIds()
     } else {
+      this.showLoader = true;
       this.cIds = this.configService.getCategories().result
       this.loadDiscussionData()
     }
+
   }
   async getForumIds() {
     let body = {
@@ -255,7 +261,7 @@ export class DiscussAllComponent implements OnInit {
    }
   }
   getContextData(cid: any) {
-    this.showLoader = true;
+    // this.showLoader = true;
     const req = {
       // request: {
       cids: cid
@@ -281,7 +287,7 @@ export class DiscussAllComponent implements OnInit {
   }
 
   fetchAllTags() {
-    this.showLoader = true;
+    // this.showLoader = true;
     this.discussionService.fetchAllTag().subscribe(data => {
       this.showLoader = false;
       this.trendingTags = _.get(data, 'tags');
@@ -296,7 +302,7 @@ export class DiscussAllComponent implements OnInit {
     const req = {
       cids: cid
     }
-    this.showLoader = true;
+    // this.showLoader = true;
     this.discussionService.contextBasedTags(req).subscribe(data => {
       this.showLoader = false;
       this.trendingTags = _.get(data, 'result');

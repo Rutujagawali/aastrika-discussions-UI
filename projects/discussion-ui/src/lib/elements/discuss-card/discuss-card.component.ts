@@ -27,8 +27,10 @@ export class DiscussCardComponent implements OnInit {
   @Output() voteChange = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
   dropdownContent = true;
+  replydropdownContent = true
   showDeleteModel = false
   @Input() topicId:number
+  contentPost: any 
   like = false 
   likeReply = false
   currentActivePage = 1;
@@ -38,10 +40,12 @@ export class DiscussCardComponent implements OnInit {
   mainUid: number;
   categoryId: any;
   showEditTopicModal = false;
+  showEditPost = false
   editableTopicDetails: any;
   // cIds: any
   // showReplyFlag = false
   public unsubscribe = new Subject<void>();
+  contenPostData: any;
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -54,6 +58,9 @@ export class DiscussCardComponent implements OnInit {
       // tslint:disable-next-line:no-string-literal
       if (e.target['id'] !== 'group-actions') {
         this.dropdownContent = true;
+      }
+      if (e.target['id'] !== 'reply-actions') {
+        this.replydropdownContent = true;
       }
     });
     
@@ -106,7 +113,12 @@ export class DiscussCardComponent implements OnInit {
     this.dropdownContent = !this.dropdownContent;
   }
 
-  
+  onReplyMenuClick(){
+    this.replydropdownContent =!this.replydropdownContent
+    if(this.showEditPost){
+      this.replydropdownContent = true
+    }
+  }
 
   deleteTopic(event, topicData) {
     console.log(event, topicData)
@@ -203,7 +215,7 @@ export class DiscussCardComponent implements OnInit {
           // this.openSnackbar(this.toastSuccess.nativeElement.value);
           this.like = false
           this.voteChange.emit(discuss)
-          this.refreshPostData(this.currentActivePage);
+          // this.refreshPostData(this.currentActivePage);
         },
         (err: any) => {
           // toast
@@ -248,8 +260,9 @@ export class DiscussCardComponent implements OnInit {
     if (_.get(event, 'action') === 'update') {
       this.editTopicHandler(event, _.get(event, 'tid'), _.get(event, 'request'));
     }
-    this.showEditTopicModal = false;
-    this.discussionUIService.eidtComment.next(event)
+    if(_.get(event, 'message') === 'discard'){
+      this.showEditTopicModal = false;
+    }
   }
 
 
@@ -257,7 +270,9 @@ export class DiscussCardComponent implements OnInit {
     // this.logTelemetry(event, this.editableTopicDetails);
     this.discussionService.editPost(tid, updateTopicRequest).subscribe(data => {
       console.log('update success', data);
-      this.refreshPostData(this.currentActivePage);
+      this.showEditTopicModal = false;
+      this.discussionUIService.eidtComment.next(event)
+      // this.refreshPostData(this.currentActivePage);
     }, error => {
       console.log('error while updating', error);
     });
@@ -276,5 +291,38 @@ export class DiscussCardComponent implements OnInit {
         // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
       });
 
+  }
+   /*edit reply  data pass to component */
+  editReplyPost(post:any,masterData:any){
+    this.contentPost = { 'content' :'',posts:''}
+    this.contentPost.content = _.get(post, 'content').replace(/<[^>]*>/g, '');
+    this.contentPost.post = post
+    this.contenPostData = masterData
+    this.showEditPost = true
+  }
+  editReplyHandler(event) {
+    if (_.get(event, 'action') === 'cancel') {
+      this.showEditPost = false
+    } else if (_.get(event, 'action') === 'edit') {
+      this.updatePost(_.get(event, 'content'), _.get(this.contentPost.post, 'pid'));
+    }
+  }
+  updatePost(updatedPostContent: any, pid: number) {
+    
+    const req = {
+      content: updatedPostContent,
+      title: '',
+      tags: [],
+      uid: _.get(this.contenPostData, 'loggedInUser.uid')
+    };
+    this.discussionService.editPost(pid, req).subscribe((data: any) => {
+      // TODO: Success toast
+      this.showEditPost = false
+      this.refreshPostData(this.currentActivePage);
+    }, (error) => {
+      // TODO: error toast
+      console.log('e', error);
+    });
+    //console.log(pid);
   }
 }
