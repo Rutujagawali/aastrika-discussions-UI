@@ -1,16 +1,25 @@
-<form [formGroup]="replyForm" class="d-flex pr-3 pl-4 pb-2 pt-1">
-  <input
-    class="post-field"
-    placeholder="Join the Conversation"
-    minlength="5"
-    aria-label="Type your message here"
-    formControlName="replyContent"
-    [ngModel]="content"
-  />
-</form>
-<div class="updatePostActions mr-3">
-  <button class="df-btn df-cancel-btn" *ngIf="showCancel" (click)="onCancelClick()" id="cancel-update-post"
-    type="button">Cancel</button>
-  <button [ngClass]="{'df-btn-disabled': !isButtonEnabled }" *ngIf="mode === 'edit'" [disabled]="!isButtonEnabled"
-    class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button">Done</button>
+<div class="modal fade post_comment_modal" id="myModal">
+  <div class="discussion-start-modal">
+    <div class="discussion-start-modal-content">
+      <div class="discussion_inner_left">
+        <form [formGroup]="replyForm" class="d-flex pb-2 pt-1 mt-3">
+          <input
+            class="post-field"
+            placeholder="Join the Conversation"
+            minlength="5"
+            aria-label="Type your message here"
+            formControlName="replyContent"
+            [ngModel]="content"
+          />
+        </form>
+          <div class="updatePostActions mt-3 mb-0">
+            <button class="df-btn df-cancel-btn" *ngIf="showCancel" (click)="onCancelClick()" id="cancel-update-post"
+              type="button">Cancel</button>
+            <button [ngClass]="{'df-btn-disabled': !isButtonEnabled }" *ngIf="mode === 'edit'" [disabled]="!isButtonEnabled"
+              class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button">Done</button>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>
+
