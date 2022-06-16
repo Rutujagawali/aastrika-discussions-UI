@@ -300,6 +300,7 @@ export class DiscussCardComponent implements OnInit {
     this.contentPost.post = post
     this.contenPostData = masterData
     this.showEditPost = true
+    this.activePost = {}
   }
   editReplyHandler(event) {
     if (_.get(event, 'action') === 'cancel') {
