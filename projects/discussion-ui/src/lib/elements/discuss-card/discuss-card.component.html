@@ -148,9 +148,9 @@
                 {{ post?.timestamp | pipeRelativeTime }}
               </span>
               <p class="discussion-card-comment" [innerHTML]="post?.content"></p>
-              <div *ngIf="data?.uid == data?.loggedInUser?.uid"> 
-                <div class="kabab-menu" *ngIf="!showEditPost" id="reply-actions" (click)="onReplyMenuClick()"></div>
-                <div class="kabab-menu-dropdown-content" [hidden]="replydropdownContent">
+              <div *ngIf="post?.uid == data?.loggedInUser?.uid"> 
+                <div class="post-menu" *ngIf="!showEditPost" id="reply-actions" (click)="onReplyMenuClick(); activePost = post"></div>
+                <div class="post-menu-dropdown-content"  [class.active] ="post === activePost">
                   <div>
                     <div class="list" (click)="editReplyPost(post,data)">Edit</div>
                   

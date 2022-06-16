@@ -46,6 +46,7 @@ export class DiscussCardComponent implements OnInit {
   // showReplyFlag = false
   public unsubscribe = new Subject<void>();
   contenPostData: any;
+  activePost = {};
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
