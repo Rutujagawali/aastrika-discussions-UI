@@ -174,10 +174,7 @@
 				}
 			}
 
-			.text-error {
-				color: var(--red);
-				font-size: 12px;
-			}
+			
 
 			.mandatory-label {
 				font-size: 1rem;
@@ -454,4 +451,11 @@ select.post_form_select:focus {
 .font-weight-500{
 	font-weight: 500!important;
 	text-shadow: none;
+}
+
+.text-error {
+	color: var(--red);
+    font-size: 12px;
+    padding-left: 20px;
+    padding-top: 5px;
 }

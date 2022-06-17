@@ -32,6 +32,12 @@
               </div>
               <!-- <small class="text-error" *ngIf="showError('question')"  i18n="question Error|Explains question is required">
               Question is mandatory</small> -->
+              <ng-container *ngIf="startForm.controls['question'].invalid && (startForm.controls['question'].dirty || startForm.controls['question'].touched)" > 
+                <!-- test -->
+                <small class="text-error" *ngIf="startForm.controls['question'].errors?.minlength"
+                i18n="question Error|Explains question is required">Question is mandatory. It should be minimum of
+                8 characters </small>
+              </ng-container>
               
             </div>
           </div>

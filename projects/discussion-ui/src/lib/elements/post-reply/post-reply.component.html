@@ -2,15 +2,30 @@
   <div class="discussion-start-modal">
     <div class="discussion-start-modal-content">
       <div class="discussion_inner_left">
-        <form [formGroup]="replyForm" class="d-flex pb-2 pt-1 mt-3">
+        <form [formGroup]="replyForm" class="d-flex flex-col pb-2 pt-1 mt-3">
           <input
             class="post-field"
             placeholder="Join the Conversation"
-            minlength="5"
+            minlength="2"
             aria-label="Type your message here"
             formControlName="replyContent"
             [ngModel]="content"
           />
+          <ng-container
+          *ngIf="
+            replyForm.controls['replyContent'].invalid &&
+            (replyForm.controls['replyContent'].dirty ||
+              replyForm.controls['replyContent'].touched)
+          "
+        >
+          <!-- test -->
+          <small
+            class="text-error"
+            *ngIf="replyForm.controls['replyContent'].errors?.minlength"
+            i18n="description Error|Explains description is required"
+            >It should be minimum of 2 characters
+          </small>
+        </ng-container>
         </form>
           <div class="updatePostActions mt-3 mb-0">
             <button class="df-btn df-cancel-btn" *ngIf="showCancel" (click)="onCancelClick()" id="cancel-update-post"
