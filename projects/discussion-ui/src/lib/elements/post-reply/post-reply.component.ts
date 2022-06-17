@@ -22,13 +22,12 @@ export class PostReplyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('conent came', this.content);
     this.initializeFormFields();
   }
 
   initializeFormFields() {
     this.replyForm = this.formBuilder.group({
-      replyContent: ['', Validators.required]
+      replyContent: ['', [Validators.required, Validators.minLength(2)]]
     });
     this.replyForm.valueChanges.subscribe(val => {
       this.isButtonEnabled = this.validateForm();

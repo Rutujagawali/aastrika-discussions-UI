@@ -8,7 +8,7 @@
 
 .label-wrapper{
     margin-left: 32px !important;
-    padding-top: 5px;
+    // padding-top: 5px;
 
 }
 
@@ -96,7 +96,7 @@
 
 .discuss-card-header {
     .user_name_div {
-        margin-bottom: 12px;
+        margin-bottom: 1px;
         .circle-text {
             border-radius: 12px;
             width: 24px;
@@ -278,6 +278,18 @@
     letter-spacing: -0.02em;
     // padding-left: 33px;
     color: #000000;
+    margin-bottom: 0 !important;
+    text-transform: lowercase !important;
+    // ::ng-deep p{
+    //     margin-bottom: 0 !important;
+    //     text-transform: lowercase !important;
+    // }
+    ::ng-deep p{
+        html[dir="auto"]  {
+            margin-bottom: 0 !important;
+            text-transform: lowercase !important;
+        }
+}
 }
 
 .pl-32{
@@ -312,6 +324,7 @@
 .views-content-reply{
     display: flex;
     align-items: center;
+    cursor: pointer !important;
 }
 
 .d-block{
@@ -396,3 +409,11 @@
 .post-menu-dropdown-content.active{
     display: block ;
 }
+
+::ng-deep {
+    html[dir="auto"] .discussion-card-comment {
+        margin-bottom: 0 !important;
+        text-transform: lowercase !important;
+    }
+}
+

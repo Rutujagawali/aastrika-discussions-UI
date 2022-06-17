@@ -34,7 +34,7 @@ export class ReplyCommentComponent implements OnInit {
 
   initializeFormFields() {
     this.replyForm = this.formBuilder.group({
-      replyContent: ['', Validators.required]
+      replyContent: ['', [Validators.required, Validators.minLength(2) ]]
     });
   }
 

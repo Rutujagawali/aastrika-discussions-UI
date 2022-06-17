@@ -115,13 +115,13 @@
     }
   }
 
-  .replay-field {
+  .form-container {
     margin-bottom: 60px;
   }
 
-  .reply-btn{
-    top: -31px;
-  }
+  // .reply-btn{
+  //   top: -31px;
+  // }
 }
 
 .df-btn-container {
@@ -168,4 +168,16 @@
       font: 400 10px/12px Lato;
     }
   }
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  .text-error {
+    color: var(--red);
+    font-size: 12px;
+    padding-left: 20px;
+    padding-top: 5px;
+
+}
 }

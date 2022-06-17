@@ -1,9 +1,9 @@
 <div class="reply-component">
-    <div class="df-btn-container">
+  <div class="df-btn-container">
     <button (click)="goBack()" type="button" class="df-btn df-back-btn">
-          <img src="./assets/discussion-ui/images/back-img.png" alt="back-image">
-          Back
-      </button>
+      <img src="./assets/discussion-ui/images/back-img.png" alt="back-image" />
+      Back
+    </button>
   </div>
   <div class="repy-title">Replying to</div>
 
@@ -32,16 +32,13 @@
     </div>
   </div>
 
-  <p
-    class="discussion-card-comment"
-    [innerHTML]="replyData?.title"
-  ></p>
-
-  <form [formGroup]="replyForm" class="d-flex">
+  <p class="discussion-card-comment" [innerHTML]="replyData?.title"></p>
+  <div class="form-container">
+    <form [formGroup]="replyForm" class="d-flex">
       <input
         class="replay-field"
         placeholder="Join the Conversation"
-        minlength="5"
+        minlength="2"
         aria-label="Type your message here"
         formControlName="replyContent"
       />
@@ -53,5 +50,21 @@
       >
         <img src="./assets/discussion-ui/images/send-icon.png" />
       </button>
-  </form>
+    </form>
+    <ng-container
+      *ngIf="
+        replyForm.controls['replyContent'].invalid &&
+        (replyForm.controls['replyContent'].dirty ||
+          replyForm.controls['replyContent'].touched)
+      "
+    >
+      <!-- test -->
+      <small
+        class="text-error"
+        *ngIf="replyForm.controls['replyContent'].errors?.minlength"
+        i18n="description Error|Explains description is required"
+        >It should be minimum of 2 characters
+      </small>
+    </ng-container>
+  </div>
 </div>
