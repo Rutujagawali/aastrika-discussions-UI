@@ -47,6 +47,8 @@ export class DiscussCardComponent implements OnInit {
   public unsubscribe = new Subject<void>();
   contenPostData: any;
   activePost = {};
+  showreplyDelete = false
+  postId: number;
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -126,7 +128,36 @@ export class DiscussCardComponent implements OnInit {
     this.topicId = topicData
     this.showDeleteModel = true
   }
+  /* delte reply comment */ 
+  deleteReply(postData,masterData) {
+   console.log(postData) 
+   this.showreplyDelete = true;
+   this.postId = _.get(postData,'pid')
+   this.showEditPost = true
+   this.activePost = {}
+   this.contenPostData = {}
+  }
 
+  /**/
+  deleteReplyHandler(){
+    this.discussionService.deletePost(this.postId,this.mainUid).subscribe(data => {
+      //this.location.back();
+      // console.log(data)
+      this.discussionUIService.deleteComment.next(data);
+      this.showEditPost = false
+      this.refreshPostData(this.currentActivePage);
+
+    }, error => {
+      console.log('error while deleting', error);
+    });
+    this.showDeleteModel = false
+  } 
+
+  closeReplyDeleteModel(event){
+    this.showreplyDelete = false
+    this.showEditPost = false
+
+  }
   showReply(discussionData?:any) {
     console.log("reply=", this.replyFlag)
     if (this.replyFlag == false) {
@@ -253,7 +284,6 @@ export class DiscussCardComponent implements OnInit {
     this.mainUid = _.get(data, 'loggedInUser.uid');
     this.categoryId = _.get(data, 'cid');
     this.topicId = _.get(data, 'tid');
-    console.log("postS",this.data)
   }
 
   closeModal(event: any) {

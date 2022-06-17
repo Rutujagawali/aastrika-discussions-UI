@@ -10,6 +10,7 @@ import { PipesModule } from './../pipes/pipes.module';
 import { PostReplyComponent } from './post-reply/post-reply.component';
 import { SlidersComponent } from './sliders/sliders.component';
 import { DiscussionDeleteComponent } from '../components/discussion-delete/discussion-delete.component';
+import { ReplyDelteComponent } from '../components/reply-delte/reply-delte.component';
 // import { DiscussStartComponent } from '../components/discuss-start/discuss-start.component';
 import { ComponentsModule } from '../components/components.module';
 import { DiscussEditComponent } from './discuss-start/discuss-edit.component';
@@ -25,9 +26,10 @@ import { DiscussEditComponent } from './discuss-start/discuss-edit.component';
     RelatedDiscussionComponent,
     SlidersComponent,
     DiscussionDeleteComponent,
-    DiscussEditComponent
+    DiscussEditComponent,
     // ReplyCommentComponent
-    // ComponentsModule
+    // ComponentsModule,
+    ReplyDelteComponent
   ],
   imports: [
     CommonModule, PipesModule,
@@ -45,7 +47,8 @@ import { DiscussEditComponent } from './discuss-start/discuss-edit.component';
     PostReplyComponent,
     SlidersComponent,
     DiscussionDeleteComponent,
-    DiscussEditComponent
+    DiscussEditComponent,
+    ReplyDelteComponent
   ]
 })
 export class ElementsModule { }
