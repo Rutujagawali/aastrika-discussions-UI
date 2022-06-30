@@ -243,7 +243,7 @@ export class TagAllDiscussionComponent implements OnInit {
 
   getRecentData(page: any) {
     this.showLoader = true;
-    return this.discussService.fetchRecentD(page).subscribe(
+    return this.discussService.fetchRecentD().subscribe(
       (data: any) => {
         this.showLoader = false;
         this.discussionList = [];
