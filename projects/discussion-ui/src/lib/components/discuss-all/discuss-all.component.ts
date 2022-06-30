@@ -76,7 +76,7 @@ export class DiscussAllComponent implements OnInit {
     this.discussionUIService.eidtComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
         //this.showLoader = false;
-        this.loadDiscussionData()
+        this.getRecentData()
       }
     });
     /* load discussion data after delting the comment */ 
@@ -89,7 +89,7 @@ export class DiscussAllComponent implements OnInit {
     this.discussionUIService.replyComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
         //this.showLoader = false;
-        this.loadDiscussionData()
+        this.getRecentData()
       }
     });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
@@ -235,9 +235,9 @@ export class DiscussAllComponent implements OnInit {
     this.currentFilter === 'recent' ? this.getRecentData(page) : this.fillPopular(page)
   }
 
-  getRecentData(page: any) {
+  getRecentData(page?: any) {
     this.showLoader = true;
-    return this.discussionService.fetchRecentD(page).subscribe(
+    return this.discussionService.fetchRecentD().subscribe(
       (data: any) => {
         //console.log("getRecentData", data)
         this.showLoader = false;
@@ -339,7 +339,7 @@ export class DiscussAllComponent implements OnInit {
   closeModal(event) {
     if (_.get(event, 'message') === 'success') {
       if (this.context) {
-        this.getContextBasedDiscussion(this.cIds)
+        this.getRecentData()
       } else {
         this.refreshData()
       }

@@ -153,8 +153,8 @@ export class DiscussionService {
     return this.csDiscussionService.replyPost(tid, data);
   }
 
-  fetchRecentD(page?: any) {
-    return this.csDiscussionService.recentPost(page);
+  fetchRecentD() {
+    return this.csDiscussionService.recentPost();
   }
 
   getTagBasedDiscussion(tag?: string, page?: any) {
