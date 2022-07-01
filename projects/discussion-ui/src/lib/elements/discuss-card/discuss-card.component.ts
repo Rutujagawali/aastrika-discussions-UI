@@ -49,6 +49,7 @@ export class DiscussCardComponent implements OnInit {
   activePost = {};
   showreplyDelete = false
   postId: number;
+  showLoader = false;
   constructor(
     private renderer: Renderer2,
     private discussionService: DiscussionService,
@@ -167,7 +168,7 @@ export class DiscussCardComponent implements OnInit {
 
     }
     else {
-      this.replyFlag = false
+     this.replyFlag = false
     }
   }
 
@@ -256,13 +257,17 @@ export class DiscussCardComponent implements OnInit {
     }
   }
   async refreshPostData(page?: any) {
+    this.showLoader = true
     if (this.currentFilter === 'timestamp') {
       console.log(this.topicId)
       this.discussionService.fetchTopicById(this.topicId, this.slug, page).subscribe(
+        
         (data: NSDiscussData.IDiscussionData) => {
+          this.showLoader = false
           this.appendResponse(data)
         },
         (err: any) => {
+          this.showLoader = false
           console.log('Error in fetching topics')
           // toast message
           // this.openSnackbar(err.error.message.split('|')[1] || this.defaultError);
@@ -270,9 +275,11 @@ export class DiscussCardComponent implements OnInit {
     } else {
       this.discussionService.fetchTopicByIdSort(this.topicId, 'voted', page).subscribe(
         (data: NSDiscussData.IDiscussionData) => {
+          this.showLoader = false
           this.appendResponse(data)
         },
         (err: any) => {
+          this.showLoader = false
           console.log('Error in fetching topics')
         });
     }

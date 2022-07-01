@@ -114,8 +114,10 @@
     </div>
   </span>
   <div [ngClass]="replyFlag ? 'd-block' : 'd-hidden'">
+    <lib-app-loader *ngIf="showLoader"></lib-app-loader>
     <div *ngFor="let post of data?.posts" class="discuss-card-content cursor-default pl-27">
-      <div class="discuss-card-header" *ngIf="replyFlag && post?.index != 0">
+      
+      <div class="discuss-card-header" *ngIf="!showLoader && replyFlag && post?.index != 0">
         <div class="discussion-details">
           <!-- user name -->
           <div class="user_name_div d-flex">
