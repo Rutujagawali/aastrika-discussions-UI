@@ -58,8 +58,8 @@ export class DiscussStartComponent implements OnInit {
   
   initializeFormFields(topicData) {
     this.startForm = this.formBuilder.group({
-      question: ['', [Validators.required , Validators.minLength(8) , this.noWhitespaceValidator]],
-      description: ['', [Validators.required, Validators.minLength(8) , this.noWhitespaceValidator]],
+      question: ['', [Validators.required , Validators.minLength(8) , Validators.maxLength(200), this.noWhitespaceValidator]],
+      description: ['test 12345'],
       tags: [],
       category: []
     });
