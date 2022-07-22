@@ -76,7 +76,7 @@ export class DiscussAllComponent implements OnInit {
     this.discussionUIService.eidtComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
         //this.showLoader = false;
-        this.getRecentData()
+        this.loadDiscussionData()
       }
     });
     /* load discussion data after delting the comment */ 
@@ -89,7 +89,7 @@ export class DiscussAllComponent implements OnInit {
     this.discussionUIService.replyComment$.pipe(takeUntil(this.unsubscribe)).subscribe( data =>  {
       if(data){
         //this.showLoader = false;
-        this.getRecentData()
+        this.loadDiscussionData()
       }
     });
     this.telemetryUtils.logImpression(NSDiscussData.IPageName.HOME);
@@ -339,7 +339,7 @@ export class DiscussAllComponent implements OnInit {
   closeModal(event) {
     if (_.get(event, 'message') === 'success') {
       if (this.context) {
-        this.getRecentData()
+        this.getContextBasedDiscussion(this.cIds)
       } else {
         this.refreshData()
       }
