@@ -278,7 +278,7 @@ export class DiscussAllComponent implements OnInit {
         this.allTopics = _.map(res, (topic) => topic.topics);
         this.privilegesData = res[0].privileges
         //console.log(this.privilegesData)
-        this.discussionList = _.flatten(this.allTopics)
+        this.discussionList =  _.orderBy(_.flatten(this.allTopics), ['tid'],['desc'])
       }, error => {
         this.showLoader = false;
         // TODO: Toaster
