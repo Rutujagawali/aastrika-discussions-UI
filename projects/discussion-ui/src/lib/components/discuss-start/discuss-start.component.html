@@ -28,18 +28,16 @@
               <!-- <h1>this is test heading</h1> -->
               <div>
                 <textarea  class="start-form-field-control question_input_field" rows="8" placeholder="Ask a question or post an idea"
-                formControlName="question" #question [required]="true"> </textarea>
+                formControlName="question" #question [required]="true" i18n-placeholder> </textarea>
               </div>
               <!-- <small class="text-error" *ngIf="showError('question')"  i18n="question Error|Explains question is required">
               Question is mandatory</small> -->
               <ng-container *ngIf="startForm.controls['question'].invalid && (startForm.controls['question'].dirty || startForm.controls['question'].touched)" > 
                 <!-- test -->
                 <small class="text-error" *ngIf="startForm.controls['question'].errors?.minlength"
-                i18n="question Error|Explains question is required">Question is mandatory. It should be minimum of
-                8 characters </small>
+                i18n>Question is mandatory. It should be minimum of 8 characters</small>
                 <small class="text-error" *ngIf="startForm.controls['question'].errors?.maxlength"
-                i18n="question Error|Explains question is required">It should be maxmimum of
-                200 characters </small>
+                i18n>It should be maxmimum of 200 characters</small>
               </ng-container>
               
             </div>
@@ -78,18 +76,18 @@
           <div class="start-modal-buttons">
             <button (click)="closeModal('discard');logTelemetry($event)" type="button" class="df-btn df-discard-btn"
               id="discard-discussion-start-form "> 
-              <span class="font-weight-500">Discard</span> 
+              <span class="font-weight-500" i18n>Discard</span> 
             </button>
 
             <button *ngIf="mode !== 'edit'" type="submit" class="df-btn df-submit-btn"
               [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton && !startForm.hasError('whitespace')"
               (click)="submitPost(startForm);logTelemetry($event)" id="submit-discussion-start-form">
-              <span class="text-white font-weight-500">Submit Post</span>
+              <span class="text-white font-weight-500" i18n>Submit Post</span>
             </button>
             <button *ngIf="mode === 'edit'" type="submit" class="df-btn df-update-btn"
               [ngClass]="{'df-btn-disabled': !enableSubmitButton }" [disabled]="!enableSubmitButton && !startForm.hasError('whitespace')"
               (click)="updatePost(startForm);logTelemetry($event)" id="update-topic-popup">
-              <span class="text-white font-weight-500">Update</span>
+              <span class="text-white font-weight-500" i18n>Update</span>
             </button>
           </div>
           ​

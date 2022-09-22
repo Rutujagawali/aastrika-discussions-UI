@@ -23,8 +23,8 @@
         <div class="kabab-menu" id="group-actions" (click)="onMenuClick()"></div>
         <div class="kabab-menu-dropdown-content" [hidden]="dropdownContent">
           <div>
-            <div class="list" (click)="editTopic(discussionData)">Edit</div>
-            <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)">
+            <div class="list" (click)="editTopic(discussionData)" i18n>Edit</div>
+            <div id="delete-topic" class="list" (click)="deleteTopic($event, discussionData.tid)" i18n>
               Delete
             </div>
           </div>
@@ -70,11 +70,8 @@
   <div class="discuss-card-comments">
     <div class="discuss-comments-area mb-2">
       <span class="votes-content">
-        <span class="discuss-card-label" (click)="replyHandler(discussionData)">
-          Reply
-
-          <!-- <span>{{(discussionData.upvotes || 0) }}</span> -->
-        </span>
+        <span class="discuss-card-label" (click)="replyHandler(discussionData)" i18n>
+          Reply</span>
 
         <span class="views-content">
           <img (click)="upvote(discussionData)" src="./assets/discussion-ui/images/thumbs-up.png"
@@ -139,10 +136,10 @@
                   (click)="onReplyMenuClick(); activePost = post"></div>
                 <div class="post-menu-dropdown-content" [class.active]="post === activePost">
                   <div>
-                    <div class="list" (click)="editReplyPost(post, data)">
+                    <div class="list" (click)="editReplyPost(post, data)" i18n>
                       Edit
                     </div>
-                    <div class="list" (click)="deleteReply(post, data)">
+                    <div class="list" (click)="deleteReply(post, data)" i18n>
                       Delete
                     </div>
                   </div>
