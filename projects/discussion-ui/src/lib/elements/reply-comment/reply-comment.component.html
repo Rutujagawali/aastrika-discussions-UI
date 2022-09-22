@@ -1,11 +1,11 @@
 <div class="reply-component">
   <div class="df-btn-container">
-    <button (click)="goBack()" type="button" class="df-btn df-back-btn">
+    <button (click)="goBack()" type="button" class="df-btn df-back-btn" i18n>
       <img src="./assets/discussion-ui/images/back-img.png" alt="back-image" />
       Back
     </button>
   </div>
-  <div class="repy-title">Replying to</div>
+  <div class="repy-title" i18n>Replying to</div>
 
   <!-- <div *ngIf="displayState === 'EDIT REPLY' ">
 
@@ -41,6 +41,7 @@
         minlength="2"
         aria-label="Type your message here"
         formControlName="replyContent"
+        i18n-placeholder
       />
       <button
         class="reply-btn"
@@ -62,9 +63,7 @@
       <small
         class="text-error"
         *ngIf="replyForm.controls['replyContent'].errors?.minlength"
-        i18n="description Error|Explains description is required"
-        >It should be minimum of 2 characters
-      </small>
+        i18n>It should be minimum of 2 characters</small>
     </ng-container>
   </div>
 </div>

@@ -10,6 +10,7 @@
             aria-label="Type your message here"
             formControlName="replyContent"
             [ngModel]="content"
+            i18n-placeholder
           />
           <ng-container
           *ngIf="
@@ -22,16 +23,14 @@
           <small
             class="text-error"
             *ngIf="replyForm.controls['replyContent'].errors?.minlength"
-            i18n="description Error|Explains description is required"
-            >It should be minimum of 2 characters
-          </small>
+            i18n>It should be minimum of 2 characters</small>
         </ng-container>
         </form>
           <div class="updatePostActions mt-3 mb-0">
             <button class="df-btn df-cancel-btn" *ngIf="showCancel" (click)="onCancelClick()" id="cancel-update-post"
-              type="button">Cancel</button>
+              type="button" i18n>Cancel</button>
             <button [ngClass]="{'df-btn-disabled': !isButtonEnabled }" *ngIf="mode === 'edit'" [disabled]="!isButtonEnabled"
-              class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button">Done</button>
+              class="df-btn df-update-btn" (click)="onReplyClick('edit')" id="update-post" type="button" i18n>Done</button>
           </div>
         </div>
       </div>
