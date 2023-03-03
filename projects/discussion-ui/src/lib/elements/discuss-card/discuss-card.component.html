@@ -97,7 +97,7 @@
   <span class="votes-content" *ngIf="discussionData?.postcount > 1">
     <div class="row discuss-card-label label-wrapper">
       <div *ngIf="!replyFlag" (click)="showReply(discussionData)">
-        <div>View {{ discussionData?.postcount - 1 }} Replies</div>
+        <div><span i18n>View </span> {{ discussionData?.postcount - 1 }} <span i18n>Replies</span></div>
       </div>
       <div *ngIf="replyFlag" (click)="showReply()">
         Hide {{ discussionData?.postcount - 1 }} Replies
