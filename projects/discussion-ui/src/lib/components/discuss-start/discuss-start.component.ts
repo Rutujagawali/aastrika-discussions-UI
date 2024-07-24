@@ -145,6 +145,7 @@ export class DiscussStartComponent implements OnInit {
       content: form.value.description,
       tags: form.value.tags,
     };
+    this.enableSubmitButton = false;
     this.discussService.createPost(postCreateReq).subscribe(
       (data) => {
         if (data.payload) {
@@ -154,6 +155,7 @@ export class DiscussStartComponent implements OnInit {
         }
         form.reset();
         this.uploadSaveData = false;
+        this.enableSubmitButton = true;
         // success toast;
         // this.openSnackbar(this.toastSuccess.nativeElement.value)
         // close the modal
@@ -163,6 +165,7 @@ export class DiscussStartComponent implements OnInit {
         // error toast
         // .openSnackbar(this.toastError.nativeElement.value)
         this.uploadSaveData = false;
+        this.enableSubmitButton = true;
         if (err) {
           if (err.error && err.error.message) {
             this.showErrorMsg = true;

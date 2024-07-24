@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DiscussionService } from '../../services/discussion.service';
 import { Component, OnInit, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { NSDiscussData } from '../../models/discuss.model';
@@ -58,7 +58,7 @@ export class DiscussEditComponent implements OnInit {
 
   initializeFormFields(topicData) {
     this.startForm = this.formBuilder.group({
-      question: ['', Validators.required],
+      question: ['', [Validators.required , Validators.minLength(8) , Validators.maxLength(200), this.noWhitespaceValidator]],
       description: ['', Validators.required],
       tags: [],
       category: []
@@ -80,7 +80,11 @@ export class DiscussEditComponent implements OnInit {
       this.validateForm();
     }
   }
-
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
   validateForm() {
     if (this.startForm.status === 'VALID') {
       this.enableSubmitButton = true;
@@ -141,6 +145,7 @@ export class DiscussEditComponent implements OnInit {
       content: form.value.description,
       tags: form.value.tags,
     };
+    this.enableSubmitButton = false;
     this.discussService.createPost(postCreateReq).subscribe(
       (data) => {
         if (data.payload) {
@@ -150,12 +155,14 @@ export class DiscussEditComponent implements OnInit {
         }
         form.reset();
         this.uploadSaveData = false;
+        this.enableSubmitButton = true;
         // success toast;
         // this.openSnackbar(this.toastSuccess.nativeElement.value)
         // close the modal
       },
       err => {
         this.closeModal('discard');
+        this.enableSubmitButton = true;
         // error toast
         // .openSnackbar(this.toastError.nativeElement.value)
         this.uploadSaveData = false;

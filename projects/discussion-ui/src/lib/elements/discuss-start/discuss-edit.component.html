@@ -32,6 +32,13 @@
                 </textarea>
                 
               </div>
+              <ng-container *ngIf="startForm.controls['question'].invalid && (startForm.controls['question'].dirty || startForm.controls['question'].touched)" > 
+                <!-- test -->
+                <small class="text-error" *ngIf="startForm.controls['question'].errors?.minlength"
+                i18n>Question is mandatory. It should be minimum of 8 characters</small>
+                <small class="text-error" *ngIf="startForm.controls['question'].errors?.maxlength"
+                i18n>It should be maxmimum of 200 characters</small>
+              </ng-container>
               <!-- <small class="text-error" *ngIf="showError('question')"  i18n="question Error|Explains question is required">
               Question is mandatory</small> -->
             </div>
