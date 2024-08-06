@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/discussion-ui/tsconfig.lib.json",
             "project": "projects/discussion-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/discussion-ui/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -39,5 +44,8 @@
       }
     }
   },
-  "defaultProject": "discussion-ui"
+  "defaultProject": "discussion-ui",
+  "cli": {
+    "analytics": "c127abf9-8c22-46ff-8078-a87abebd27b1"
+  }
 }
