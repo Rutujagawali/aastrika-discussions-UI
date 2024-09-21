@@ -44,8 +44,5 @@
       }
     }
   },
-  "defaultProject": "discussion-ui",
-  "cli": {
-    "analytics": "c127abf9-8c22-46ff-8078-a87abebd27b1"
-  }
+  "defaultProject": "discussion-ui"
 }
