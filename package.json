@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1102.19",
-    "@angular-devkit/build-ng-packagr": "~0.1002.4",
     "@angular/cli": "^11.2.19",
     "@angular/compiler-cli": "^11.2.14",
     "@angular/language-service": "^11.2.14",
@@ -41,7 +40,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^26.0.22",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
+    "codelyzer": "^6.0.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "^26.6.3",
