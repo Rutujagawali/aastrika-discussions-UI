@@ -44,5 +44,10 @@
       }
     }
   },
-  "defaultProject": "discussion-ui"
+  "cli": {
+    "analytics": false,
+    "cache": {
+      "enabled": false
+    }
+  }
 }
