@@ -5,7 +5,7 @@ export const urlConfig = {
     apiSlug: '/discussion',
     apiBasePath: () => `${urlConfig.host}${urlConfig.apiSlug}`,
 
-    // URLs...!
+    // URLs...! 
     getAllCategories: () => `${urlConfig.apiBasePath()}/categories`,
     getSingleCategoryDetails: (cid: number) => `${urlConfig.apiBasePath()}/category/${cid}`,
     getAllTags: () => `${urlConfig.apiBasePath()}/tags`,
