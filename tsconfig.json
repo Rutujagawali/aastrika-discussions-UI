@@ -1,11 +1,14 @@
 {
   "compileOnSave": false,
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+   },
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
