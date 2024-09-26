@@ -22,7 +22,7 @@ export function provideCsModule(){
     ElementsModule,
     CommonModule,
   ],
-  exports: [ ComponentsModule , CategoryWidgetComponent, BaseWrapperComponent, TagsWidgetComponent ],
+  exports: [ CategoryWidgetComponent, BaseWrapperComponent, TagsWidgetComponent ],
   providers: [ DiscussionEventsService, TelemetryUtilsService,{provide: 'CsModule', useFactory: provideCsModule} ]
 })
 export class DiscussionUiModule { 
